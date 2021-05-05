@@ -88,4 +88,6 @@
   {{- end -}}
 
 {{- partial "head_custom.html" . }}
-{{ template "_internal/google_analytics_async.html" . }}
+{{ if and (hugo.IsProduction) (.Site.Params.googleAnalyticsID) }}
+  {{ partial "analytics-gtag.html" . }}
+{{ end }}

@@ -5,7 +5,6 @@ title = "Jaitl's blog"
 metaDataFormat = "yaml"
 pygmentsUseClasses = true
 pygmentsCodeFences = true
-googleAnalytics = "G-KBJ7QRKR1F"
 
 [Params]
   # homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
@@ -22,6 +21,7 @@ googleAnalytics = "G-KBJ7QRKR1F"
   socialShare = false
   delayDisqus = true
   showRelatedPosts = true
+  googleAnalyticsID = "G-KBJ7QRKR1F"
   # hideAuthor = true
 #  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
 
