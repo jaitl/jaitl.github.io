@@ -5,6 +5,7 @@ title = "Jaitl's blog"
 metaDataFormat = "yaml"
 pygmentsUseClasses = true
 pygmentsCodeFences = true
+googleAnalytics = "G-KBJ7QRKR1F"
 
 [Params]
   # homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
