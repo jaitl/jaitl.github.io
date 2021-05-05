@@ -3,15 +3,11 @@ languageCode = "en-us"
 title = "Jaitl's blog"
 
 metaDataFormat = "yaml"
-pygmentsStyle = "trac"
 pygmentsUseClasses = true
 pygmentsCodeFences = true
-pygmentsCodefencesGuessSyntax = true
-#pygmentsUseClassic = true
-#pygmentOptions = "linenos=inline"
 
 [Params]
-#  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
+  # homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
   # subtitle = "Build a beautiful and simple website in minutes"
   mainSections = ["post","posts"]
   logo = "img/jaitl-avatar.png" # Expecting square dimensions
@@ -22,7 +18,6 @@ pygmentsCodefencesGuessSyntax = true
   comments = false
   readingTime = true
   wordCount = true
-  useHLJS = true
   socialShare = false
   delayDisqus = true
   showRelatedPosts = true
