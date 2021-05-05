@@ -6,6 +6,7 @@ date: 2021-04-26T12:12:00+03:00
 subtitle: ""
 image: ""
 tags: []
+private: false
 ---
 AWS provides several Artificial Intelligence (AI) services. With AI services, you could implement some useful AI things: image and video analysis, document analysis, text to speech or speech to text translation, and so on. However, those AWS services can be used not only for enterprise applications but for your self-development applications.
 

@@ -6,4 +6,5 @@ date: {{ .Date }}
 subtitle: ""
 image: ""
 tags: []
+private: false
 ---
