@@ -15,7 +15,7 @@ pygmentsCodefencesGuessSyntax = true
   # subtitle = "Build a beautiful and simple website in minutes"
   mainSections = ["post","posts"]
   logo = "img/jaitl-avatar.png" # Expecting square dimensions
-  # favicon = "img/favicon.ico"
+  favicon = "img/favicon.ico"
   dateFormat = "January 2, 2006"
   commit = false
   rss = true
@@ -26,7 +26,7 @@ pygmentsCodefencesGuessSyntax = true
   socialShare = false
   delayDisqus = true
   showRelatedPosts = true
-  hideAuthor = true
+  # hideAuthor = true
 #  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
 
 #[[Params.bigimg]]
@@ -42,14 +42,15 @@ pygmentsCodefencesGuessSyntax = true
 #  desc = "Hexagon"
 
 [Author]
- # name = "Jaitl"
- # website = "yourwebsite.com"
+ name = "Jaitl"
+ website = "https://jaitl.pro"
+ github = "jaitl"
+ twitter = "jaitl"
+ 
  # email = "youremail@domain.com"
  # facebook = "username"
- # github = "username"
  # gitlab = "username"
  # bitbucket = "username"
- # twitter = "username"
  # reddit = "username"
  # linkedin = "username"
  # xing = "username"
