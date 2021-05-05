@@ -42,7 +42,7 @@ pygmentsCodefencesGuessSyntax = true
 #  desc = "Hexagon"
 
 [Author]
-  name = "Some Person"
+ # name = "Jaitl"
  # website = "yourwebsite.com"
  # email = "youremail@domain.com"
  # facebook = "username"
