@@ -25,7 +25,7 @@ This article is about overcoming the problems that I encountered while I was imp
 ---
 
 ## Demo Project
-For this article, I apply Kotlin, Spring Boot, and [the official docker image](https://hub.docker.com/r/yandex/clickhouse-server) of ClickHouse. You can find source code on my GitHub in [this repo](https://github.com/Jaitl/clickhouse-spring-data-demo). In the `README.MD` file there is a guide that explains to you how to run and test the demo project.
+For this article, I apply Kotlin, Spring Boot, and [the official docker image](https://hub.docker.com/r/yandex/clickhouse-server) of ClickHouse. You can find source code on my GitHub in [this repo](https://github.com/jaitl/clickhouse-spring-data-demo). In the `README.MD` file there is a guide that explains to you how to run and test the demo project.
 
 ### API and DB Schema for the Demo Project
 I’ve created a simple API and simple DB schema in the demo project for demonstrating basic principles. My API has only two methods: ***create an item*** and ***get all items*** because ClickHouse hasn’t support update and delete operations therefore I can’t implement all CRUD methods.
@@ -169,6 +169,6 @@ As you can see there are some difficulties when you work with ClickHouse from Sp
 Thanks for reading. I hope this was helpful. If you have any questions, feel free to leave a response.
 
 ## Recourses
-1. [Source Code of the demo project](https://github.com/Jaitl/clickhouse-spring-data-demo)
+1. [Source Code of the demo project](https://github.com/jaitl/clickhouse-spring-data-demo)
 2. [ClickHouse MySql interface](https://clickhouse.tech/docs/en/interfaces/mysql)
 3. [ClickHouse dialect for Spring Data JDBC](https://github.com/pelenthium/clickhouse-dialect-spring-boot-starter)

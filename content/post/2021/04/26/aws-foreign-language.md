@@ -28,7 +28,7 @@ It doesn’t cover all skills but we could develop some of them this way.
 ***Note***: AWS AI services have different sets of supported languages so there is a chance that one of them won’t support your language. Also, the services support a limited number of languages.
 
 ## Demo application
-I wrote a demo application to show proof of this concept. The demo app located in [my GitHub repository](https://github.com/Jaitl/aws-lambda-telegram-lang-demo).
+I wrote a demo application to show proof of this concept. The demo app located in [my GitHub repository](https://github.com/jaitl/aws-lambda-telegram-lang-demo).
 
 I used Telegram Bot API as a UI for the application. However, you could choose any UI you want CLI, Web, Native OS forms, and so on.
 
@@ -41,7 +41,7 @@ I take advantage of these two message types for implementing two main features o
 * The user sends a text message as a response he receives an audio message and translation from the text.
 
 ### Voice message recognition
-As I said above to recognize a voice message we call AWS Transcribe service. Transcribe service supports streaming so we stream a Telegram voice message to this one service. Transcribe Streaming requires three utility classes [`AudioStreamPublisher`](https://github.com/Jaitl/aws-lambda-telegram-lang-demo/blob/main/src/main/kotlin/com/github/jaitl/aws/telegram/english/aws/steamming/AudioStreamPublisher.kt), [`SubscriptionImpl`](https://github.com/Jaitl/aws-lambda-telegram-lang-demo/blob/main/src/main/kotlin/com/github/jaitl/aws/telegram/english/aws/steamming/SubscriptionImpl.kt), and [`StreamResponseHandler`](https://github.com/Jaitl/aws-lambda-telegram-lang-demo/blob/main/src/main/kotlin/com/github/jaitl/aws/telegram/english/aws/steamming/StreamResponseHandler.kt). These files don’t contain business logic so won’t show their code here.
+As I said above to recognize a voice message we call AWS Transcribe service. Transcribe service supports streaming so we stream a Telegram voice message to this one service. Transcribe Streaming requires three utility classes [`AudioStreamPublisher`](https://github.com/jaitl/aws-lambda-telegram-lang-demo/blob/main/src/main/kotlin/com/github/jaitl/aws/telegram/english/aws/steamming/AudioStreamPublisher.kt), [`SubscriptionImpl`](https://github.com/jaitl/aws-lambda-telegram-lang-demo/blob/main/src/main/kotlin/com/github/jaitl/aws/telegram/english/aws/steamming/SubscriptionImpl.kt), and [`StreamResponseHandler`](https://github.com/jaitl/aws-lambda-telegram-lang-demo/blob/main/src/main/kotlin/com/github/jaitl/aws/telegram/english/aws/steamming/StreamResponseHandler.kt). These files don’t contain business logic so won’t show their code here.
 
 Bellow the function that accepts binary stream as input, creates a request to Transcribe Streaming and returns a recognized text.
 
@@ -128,7 +128,7 @@ fun handleCommand(chatId: Long, text: String) {
 
 In this case, we also don’t use our file system because we save the MP3 file to the RAM then we send the file from the RAM straight to Telegram.
 
-I’ve shown you significant parts of my demo project code only. Full code is located in [my GitHub repository](https://github.com/Jaitl/aws-lambda-telegram-lang-demo). Feel free to read the code from the repository and run it.
+I’ve shown you significant parts of my demo project code only. Full code is located in [my GitHub repository](https://github.com/jaitl/aws-lambda-telegram-lang-demo). Feel free to read the code from the repository and run it.
 
 ## Conclusion
 Having these three AWS AI services: Polly, Transcribe, and Translate we’ve implemented a tool that helps us to improve some of our foreign language skills. However, the concept presented in this article is the only core for further features.
@@ -144,4 +144,4 @@ And so on. What you will add to this core depends only on your requirements and 
 Thanks for reading. I hope this was helpful. If you have any questions, feel free to leave a response.
 
 ## Resources
-* [Demo app repository](https://github.com/Jaitl/aws-lambda-telegram-lang-demo)
+* [Demo app repository](https://github.com/jaitl/aws-lambda-telegram-lang-demo)
