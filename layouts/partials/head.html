@@ -89,5 +89,5 @@
 
 {{- partial "head_custom.html" . }}
 {{ if and (hugo.IsProduction) (.Site.GoogleAnalytics) }}
-  { template "_internal/google_analytics.html" . }}
+  {{ template "_internal/google_analytics.html" . }}
 {{ end }}
