@@ -27,11 +27,9 @@ pre code.hljs {
 }
 
 .highlight td:last-child pre, .highlight pre {
-  border-radius: unset;
+  border-radius: 4px;
 }
 
-/*
-.highlight td:last-child pre code, .highlight pre code {
+pre code {
   white-space: pre;
 }
-*/
