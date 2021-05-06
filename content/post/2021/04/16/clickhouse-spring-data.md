@@ -95,7 +95,7 @@ The MySql driver will crash with the exception when DEBUG level is enabled for S
 
 To resolve this problem I set the logger level to `INFO` for Spring Data JDBC logger.
 
-```
+```xml
 <logger name="org.springframework.jdbc" level="INFO" />
 ```
 
