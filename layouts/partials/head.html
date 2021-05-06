@@ -88,6 +88,6 @@
   {{- end -}}
 
 {{- partial "head_custom.html" . }}
-{{ if and (hugo.IsProduction) (.Site.Params.googleAnalyticsID) }}
-  {{ partial "analytics-gtag.html" . }}
+{{ if and (hugo.IsProduction) (.Site.GoogleAnalytics) }}
+  { template "_internal/google_analytics.html" . }}
 {{ end }}
