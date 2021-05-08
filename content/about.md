@@ -8,7 +8,9 @@ image: ""
 tags: []
 private: true
 ---
-I'm a Senior Software Engineer. I focus on Kotlin, Java, Scala languages. My profiles are High-Load and Big Data systems.
+I'm a Senior Software Engineer. I have experience in the development of High-Load, Distributed, and Big Data Analysis systems.
+
+I focus on JVM languages: Kotlin, Java, Scala. Also, I can write on Golang, Python, and JavaScript.
 
 My Russian telegram blog: [Senior's Blog](https://t.me/seniorsITBlog)
 
