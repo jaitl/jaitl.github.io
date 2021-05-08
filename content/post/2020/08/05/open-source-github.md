@@ -25,14 +25,14 @@ If you already have an idea for your project then you're in luck but if you don�
 
 The best open-source project is a project that you make for yourself then share to other people. Analyze your daily habits and investigate what kind of tool you aren’t enough in your day to day life.
 
-## Step 1: choose a technology stack
+## Step 1: Choose a Technology Stack
 **For a long-term project**, it’s better to apply the technology stack that you are already familiar with.
 
 Why is the familiar technology stack? Because when you use unknown technology you can spend too much time learning this new technology that may cause you to lose motivation or to meet a problem that you won’t be able to solve. But if you are confident about your abilities, you can apply unfamiliar technology for a long-term project.
 
 **For a short-term project**, choose any technology that you want. You can even change the stack at any time and completely rewrite the project if the technology doesn’t suit you.
 
-## Step 2: write readme and license files
+## Step 2: Write Readme and License Files
 Okay, you have found an idea and have chosen your favorite technology stack. Now, you can set up a new repository for your project on GitHub.
 
 It is time to talk about two main files inside your repository — readme, and license.
@@ -86,9 +86,11 @@ Now you have gotten the architecture’s scheme and you know what kind of tasks 
 
 Write down each task somewhere, then evaluate priority for each task by their importance and sort tasks by priority. Put these tasks to the readme file or your favorite to-do list, or create for each task the issue on GitHub.
 
+Read my article about tasks estimation.
+
 Periodically repeat the process of task planning and evaluating priority, because as you develop the app the requirements will change, as will the architecture of the app. Don’t be afraid to drop tasks that lose their value.
 
-## The time has come!
+## The Time Has Come!
 Finally, you can begin developing your app. I recommend you take the following approach:
 1. Take a task with high priority.
 1. Create a branch in git for the task.
@@ -102,6 +104,12 @@ Finally, you can begin developing your app. I recommend you take the following a
 1. Use the latest version of the app by yourself.
 
 After every implemented task you must have the correct working app which deployed somewhere.
+
+## Promote the App
+to let users know about the project
+
+write an articles
+film the video.
 
 ## Conclusion
 Let’s recap the most useful tips:
