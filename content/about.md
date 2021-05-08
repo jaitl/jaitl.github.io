@@ -8,4 +8,8 @@ image: ""
 tags: []
 private: true
 ---
-It is me
+I'm a Senior Software Engineer. I focus on Kotlin, Java, Scala languages. My profiles are High-Load and Big Data systems.
+
+My Russian telegram blog: [Senior's Blog](https://t.me/seniorsITBlog)
+
+_This page in progress..._
