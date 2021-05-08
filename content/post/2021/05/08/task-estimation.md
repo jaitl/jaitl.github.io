@@ -37,7 +37,7 @@ At the end of this step, I understand how and where I will make changes in the c
 ## Step 3. Planning
 During previous steps, I write down each step of task implementation. Thus, I build up a plan or TODO list. Then I estimate each step separately. 
 
-I include in estimation a time to agree on the task and deploy the one.
+I include a time to agree on the task and deploy the one in the estimation.
 
 According to my requirements, sub-task time has to be less than 2 hours. If they are more than 2 hours I decompose them into small ones. Then I count the total task implementation time and if the task time is more than 16 hours I break down this task into small ones.
 
