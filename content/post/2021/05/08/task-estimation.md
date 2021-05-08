@@ -8,7 +8,7 @@ image: ""
 tags: []
 private: false
 ---
-When a task is simple, estimating isn’t a problem but when the task is complex problems arise. Sometimes I have to estimate complex tasks to measure the sprint time or other activities.
+Estimating a simple task isn't a problem. The problems arise when the task is complex and unclear. Sometimes I have to estimate complex tasks to measure the sprint time or other activities. To estimate such tasks I have developed my approach over time.
 
 Occasionally my boss asks me why I estimated a task for N hours/days so I have an explanation. In my opinion, the best explanation is a sub-tasks list where each sub-task has a lead time.
 
