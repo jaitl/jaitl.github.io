@@ -10,6 +10,8 @@ private: false
 ---
 Estimating a simple task isn't a problem. The problems arise when the task is complex and unclear. Sometimes I have to estimate complex tasks to measure the sprint time or other activities. To estimate such tasks I have developed my approach over time.
 
+<!--more-->
+
 Occasionally my boss asks me why I estimated a task for N hours/days so I have an explanation. In my opinion, the best explanation is a sub-tasks list where each sub-task has a lead time.
 
 My requirements for a task estimation:

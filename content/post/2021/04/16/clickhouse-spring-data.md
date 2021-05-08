@@ -10,6 +10,8 @@ private: false
 ---
 Some time ago I got a task to write a service that inserts data into ClickHouse. My team uses Kotlin and Spring Framework so I decided to try Spring Data JDBC as ORM framework for ClickHouse. After some research, I found that ClickHouse has a [MySql interface](https://clickhouse.tech/docs/en/interfaces/mysql). Thus, probably, Spring Data JDBC is able to communicate with ClickHouse using MySql driver.
 
+<!--more-->
+
 Unfortunately, Spring Data JDBC doesn't work with ClickHouse out of the box thought MySql driver. Several problems have to be solved before this approach will work out.
 
 This article is about overcoming the problems that I encountered while I was implementing the task and solutions for them.
