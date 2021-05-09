@@ -22,12 +22,6 @@ In my experience, if a task is estimated in more than 18 hours, the task is uncl
 
 I estimate complex tasks in several steps.
 
-## Step 0. Completely Unknown and Uncertain Tasks
-When a task has a high level of uncertainty and I don't know how to implement the task I start by looking for help inside my company to find an expert in the task's field. If the company doesn't have the expert and nobody can help me I do research on the task's field by myself.
-After research, I do a prototype for the task. In the prototype, I implement unknown and uncertain features.
-
-When I got rid of unknown and uncertain features in the task I estimate the rest part of the task.
-
 ## Step 1. Requirements Investigation
 If I have a requirements document, I start by investigating it. Then I discuss the document with the placeholders to avoid misunderstanding. Unless I have the requirements document I discuss the requirements with placeholders and write a short requirements document.
 
@@ -65,6 +59,12 @@ The plan:
 11. Deploy and verify the API in production - 1h
 
 Lead time: 1d 1h or 9h
+
+## Completely Unknown and Uncertain Tasks
+When a task has a high level of uncertainty and I don't know how to implement the task I start by looking for help inside my company to find an expert in the task's field. If the company doesn't have the expert and nobody can help me I do research on the task's field by myself.
+After research, I do a prototype for the task. In the prototype, I implement unknown and uncertain features.
+
+When I got rid of unknown and uncertain features in the task I estimate the rest part of the task.
 
 ## Conclusion
 As a result of these three steps, I will end up with a plan (TODO list) for the task. Each step in the plan will have a lead time. I can count the time of all steps and get the total lead time for the task. Also, if someone asks me why I estimated a task for N hours I show him the plan.
