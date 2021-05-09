@@ -23,13 +23,13 @@ In my experience, if a task is estimated in more than 18 hours, the task is uncl
 I estimate complex tasks in several steps.
 
 ## Step 0. Completely Unknown and Uncertain Tasks
-A task can have a high level of uncertainty and you don't know how to implement the task. Start by looking for help inside your company to find an expert in the task's field. If you don't have an expert in your company and nobody can help you only one thing remains for you
-Do research of the task's field then implement a prototype for the task. In the prototype, you implement unknown and uncertain features.
+When a task has a high level of uncertainty and I don't know how to implement the task I start by looking for help inside my company to find an expert in the task's field. If the company doesn't have the expert and nobody can help me I do research on the task's field by myself.
+After research, I do a prototype for the task. In the prototype, I implement unknown and uncertain features.
 
-When you got rid of unknown and uncertain features in the task you will be able to estimate the rest part of the task.
+When I got rid of unknown and uncertain features in the task I estimate the rest part of the task.
 
 ## Step 1. Requirements Investigation
-When I have a requirements document, I start by investigating it. Then I discuss the document with the placeholders to avoid misunderstanding. Unless I have the requirements document I discuss the requirements with placeholders and write a short requirements document.
+If I have a requirements document, I start by investigating it. Then I discuss the document with the placeholders to avoid misunderstanding. Unless I have the requirements document I discuss the requirements with placeholders and write a short requirements document.
 
 At the end of this step, I have a strong understanding of the requirements for the task.
 
