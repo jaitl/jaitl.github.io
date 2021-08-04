@@ -1,8 +1,7 @@
 ---
-title: "Russian"
+title: "Статьи на русском языке"
 author: ""
 type: ""
-date: 2021-08-04T22:10:28+03:00
 subtitle: ""
 image: ""
 tags: []
