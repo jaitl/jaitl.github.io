@@ -10,6 +10,7 @@
 {{- if ge $limit 1 -}}
 {{- $pages = $pages | first $limit -}}
 {{- end -}}
+{{- $section := cond .IsHome "post" .Section}}
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
@@ -25,7 +26,7 @@
     {{- with .OutputFormats.Get "RSS" -}}
     {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
     {{- end -}}
-    {{ range $pages }}{{ if not .Params.private }}
+    {{ range (where $pages ".Section" $section) }}{{ if not .Params.private }}
     <item>
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
