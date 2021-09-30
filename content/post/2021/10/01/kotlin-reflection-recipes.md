@@ -61,10 +61,10 @@ val kType: KType = typeOf<List<String>>
 
 ### Method 4: KProperty
 
-## Recipe 3: Class traversal
-
-## Recipe 4: Refined paremeter
+## Recipe 3: Refined paremeter
 Save metadata....
+
+## Recipe 4: Class traversal
 
 ## Recipe 5: Create class by constructor
 
