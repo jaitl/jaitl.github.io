@@ -16,14 +16,21 @@ KType is
 KClass<> is
 
 ## Recipe 1: How to get KClass<>
-From a type:
+### Method 1: From a type
 ```kotlin
 val kClass: KClass<String> = String::class
 ```
-From an instance:
+
+### Method 2: From an instance:
 ```kotlin
 val str = "my test"
 val kClass: KClass<String> = str::class
+```
+
+### Method 3: From an KType:
+```kotlin
+val kType: KType = typeOf<String>
+val kClass: KClass<String> = kType.classifier as KClass<String>
 ```
 
 ## Recipe 2: How to get KType
