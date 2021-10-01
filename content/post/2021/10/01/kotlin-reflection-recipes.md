@@ -12,54 +12,100 @@ Collections of recipes for Kotlin Reflection.
 <!--more-->
 
 ## Original reflection types
-KType is
-KClass<> is
+Before you become acquainted with reflection you have to acquaint with KClass and KType classes.
 
-## Recipe 1: How to get KClass<>
+KClass represents a class. It containts information about a class name, constructors, members and so on.
+
+KType represents a type. It containts `KClass` and `type arguments` for generics types.
+
+In case you want to get `type arguments` from the type `Map<String, Int>` you have to call the `KType::arguments` method. `KClass` hasn't information about `type arguments`.
+
+You can find and play all examples from this article in this repo.
+
+## Recipe 1: How to get KClass
 ### Method 1: From a type
 ```kotlin
 val kClass: KClass<String> = String::class
 ```
 
-### Method 2: From an instance:
+### Method 2: From an instance
 ```kotlin
 val str = "my test"
 val kClass: KClass<String> = str::class
 ```
 
-### Method 3: From an KType:
+### Method 3: From a KType
 ```kotlin
-val kType: KType = typeOf<String>
+val kType: KType = typeOf<String>()
 val kClass: KClass<String> = kType.classifier as KClass<String>
 ```
 
 ## Recipe 2: How to get KType
-### Method 1: From KClass<>
-Perfectly works with simple types.
+### Method 1: From KClass
+#### Simple type
 ```kotlin
 val kClass: KClass<String> = String::class
 val kType: KType = kClass.createType()
+println(kType) // kotlin.String
 ```
 
-This method badly works with Generics. You will loose type parameters information
+#### Generic type with type argument
 ```kotlin
-val kClass: KClass<String> = List::class
-val kType: KType = kClass.createType()
+// type for string
+val kClassString: KClass<String> = String::class
+val kTypeString: KType = kClassString.createType()
+
+// type for list with strings
+val kClass: KClass<List<*>> = List::class
+val kType: KType = kClass.createType(listOf(KTypeProjection(KVariance.INVARIANT, kTypeString)))
+println(kType) // kotlin.collections.List<kotlin.String>
 ```
 
-### Method 2: typeOf<> method
+#### Generic type with star type
+Unlike previous example, here we loose all information about the type argument.
+```kotlin
+val kClass: KClass<List<*>> = List::class
+val kType: KType = kClass.starProjectedType
+assertEquals(KTypeProjection(null, null), kType.arguments.first())
+println(kType) // kotlin.collections.List<*>
+```
+
+### Method 2: From typeOf<> method
 Method [typeOf<>](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/type-of.html) is experemental now. Probably it will be stable in Kotlin 1.6.
+#### Simple type
 ```kotlin
-val kType: KType = typeOf<String>
-```
-This method supports generics types and saves type parameters information.
-```kotlin
-val kType: KType = typeOf<List<String>>
+val kType = typeOf<String>()
+println(kType) // kotlin.String
 ```
 
-### Method 3: KParameter
+#### Generic type with type argument
+The `typeOf<>()` method supports generic types and returns type parameters information.
+```kotlin
+val kType = typeOf<List<String>>()
+println(kType) // kotlin.collections.List<kotlin.String>
+```
 
-### Method 4: KProperty
+### Method 3: From constructor parametres
+```kotlin
+data class MyData(val list: List<String>)
+
+val clazz = MyData::class
+val constructor = clazz.primaryConstructor!!
+val kType: KType = constructor.parameters.first().type
+println(kType) // kotlin.collections.List<kotlin.String>
+```
+
+### Method 4: From member properties
+```kotlin
+data class MyData(val list: List<String>)
+
+val clazz = MyData::class
+val parameters = clazz.memberProperties
+val kType: KType = parameters.first().returnType
+println(kType) // kotlin.collections.List<kotlin.String>
+```
+
+There are another ways how to get KType. Here, I gave you several examples to show basic principles.
 
 ## Recipe 3: Refined paremeter
 Save metadata....
@@ -68,5 +114,5 @@ Save metadata....
 
 ## Recipe 5: Create class by constructor
 
-## Recipe 6: Create class by strings' name
+## Recipe 6: Create class by name
 
