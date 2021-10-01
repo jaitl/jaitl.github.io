@@ -12,7 +12,11 @@ Collections of recipes for Kotlin Reflection.
 <!--more-->
 
 ## Original reflection types
-Before you become acquainted with reflection you have to acquaint yourself with KClass and KType classes.
+Read this before my article:
+1. [Official documentation about reflection](https://kotlinlang.org/docs/reflection.html)
+2. [Reflection with Kotlin article](https://www.baeldung.com/kotlin/reflection)
+
+Two basic classes in Kotlin reflection is KClass and KType.
 
 [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) represents a class. It contains information about a class name, constructors, members, and so on.
 
