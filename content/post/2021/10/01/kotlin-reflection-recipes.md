@@ -12,17 +12,17 @@ Collections of recipes for Kotlin Reflection.
 <!--more-->
 
 ## Original reflection types
-Before you become acquainted with reflection you have to acquaint with KClass and KType classes.
+Before you become acquainted with reflection you have to acquaint yourself with KClass and KType classes.
 
-KClass represents a class. It containts information about a class name, constructors, members and so on.
+[KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) represents a class. It contains information about a class name, constructors, members, and so on.
 
-KType represents a type. It containts `KClass` and `type arguments` for generics types.
+[KType](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/) represents a type. It contains `KClass` and `type arguments` for generics types.
 
-In case you want to get `type arguments` from the type `Map<String, Int>` you have to call the `KType::arguments` method. `KClass` hasn't information about `type arguments`.
+In case, you want to get `type arguments` from the type `Map<String, Int>` you have to call the `KType::arguments` method. `KClass` hasn't information about `type arguments`.
 
-You can find and play all examples from this article in this repo.
+You can find and play all examples from this article in [this repo](https://github.com/jaitl/kotlin-reflection-examples).
 
-## Recipe 1: How to get KClass
+## [Recipe 1](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/KClassTest.kt): How to get KClass
 ### Method 1: From a type
 ```kotlin
 val kClass: KClass<String> = String::class
@@ -40,7 +40,7 @@ val kType: KType = typeOf<String>()
 val kClass: KClass<String> = kType.classifier as KClass<String>
 ```
 
-## Recipe 2: How to get KType
+## [Recipe 2](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/KTypeTest.kt): How to get KType
 ### Method 1: From KClass
 #### Simple type
 ```kotlin
@@ -62,7 +62,7 @@ println(kType) // kotlin.collections.List<kotlin.String>
 ```
 
 #### Generic type with star type
-Unlike previous example, here we loose all information about the type argument.
+Unlike previous example, here we loose all information about the `type argument`.
 ```kotlin
 val kClass: KClass<List<*>> = List::class
 val kType: KType = kClass.starProjectedType
@@ -105,7 +105,7 @@ val kType: KType = parameters.first().returnType
 println(kType) // kotlin.collections.List<kotlin.String>
 ```
 
-There are another ways how to get KType. Here, I gave you several examples to show basic principles.
+There are other ways how to get KType. Here, I gave you several examples to show basic principles.
 
 ## Recipe 3: Refined paremeter
 Save metadata....
