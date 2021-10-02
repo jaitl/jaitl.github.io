@@ -108,18 +108,42 @@ val kType: KType = parameters.first().returnType
 println(kType) // kotlin.collections.List<kotlin.String>
 ```
 
-There are other ways how to get KType. Here, I gave you several examples to show basic principles.
+There are other ways how to get `KType`. I gave you only several examples to show basic principles.
 
-## Recipe 4: How to get a type argument from a generic type
+## [Recipe 4](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/GenericTypeArgumentTest.kt): How to get a type argument from a generic type
 `KClass` hasn't information about `type arguments` only `KType` has. So before getting `type arguments` you have to have `KType` for your type.
 
+```kotlin
+val kType = typeOf<Map<String, Int>>()
+val arguments = kType.arguments
+val keyArgument = arguments.first().type
+val valueArgument = arguments.last().type
+println("key type argument: $keyArgument") // key type argument: kotlin.String
+println("value type argument: $valueArgument") // value type argument: kotlin.Int
+```
 
-## Recipe 5: Refined type parameters
+## [Recipe 5](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/RefinedFunctionTest.kt): Refined type parameters
 Read these articles before proceeding:
-1. [Official documentation about refined type parameters](https://kotlinlang.org/docs/inline-functions.html#reified-type-parameters).
+1. [Official documentation about inline functions and refined type parameters](https://kotlinlang.org/docs/inline-functions.html).
 2. [Stackoverflow question about refined type parameters](https://stackoverflow.com/questions/45949584/how-does-the-reified-keyword-in-kotlin-work)
 
+Pass a kClass as argument
+```kotlin
+fun printType(clazz: KClass<*>) {
+    println(clazz.qualifiedName)
+}
 
+printType(String::class) // kotlin.String
+```
+
+Get type from refined parameter
+```kotlin
+inline fun <reified T : Any>printType() {
+    println(T::class.qualifiedName)
+}
+
+printType<String>() // kotlin.String
+```
 
 ## Recipe 6: Class traversal
 
