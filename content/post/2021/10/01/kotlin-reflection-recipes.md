@@ -138,11 +138,20 @@ printType(String::class) // kotlin.String
 
 ### Get KClass from a refined parameter
 ```kotlin
-inline fun <reified T : Any>printType() {
+inline fun <reified T>printType() {
     println(T::class.qualifiedName)
 }
 
 printType<String>() // kotlin.String
+```
+
+### Get KClass from an argument
+```kotlin
+inline fun <reified T>printType(obj: T) {
+    println(T::class.qualifiedName)
+}
+
+printType("test") // kotlin.String
 ```
 
 ## Recipe 6: Class traversal
