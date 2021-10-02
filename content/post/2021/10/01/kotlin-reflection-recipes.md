@@ -127,7 +127,7 @@ Read these articles before proceeding:
 1. [Official documentation about inline functions and refined type parameters](https://kotlinlang.org/docs/inline-functions.html).
 2. [Stackoverflow question about refined type parameters](https://stackoverflow.com/questions/45949584/how-does-the-reified-keyword-in-kotlin-work)
 
-Pass a kClass as argument
+### Pass KClass as an argument
 ```kotlin
 fun printType(clazz: KClass<*>) {
     println(clazz.qualifiedName)
@@ -136,7 +136,7 @@ fun printType(clazz: KClass<*>) {
 printType(String::class) // kotlin.String
 ```
 
-Get type from refined parameter
+### Get KClass from a refined parameter
 ```kotlin
 inline fun <reified T : Any>printType() {
     println(T::class.qualifiedName)
