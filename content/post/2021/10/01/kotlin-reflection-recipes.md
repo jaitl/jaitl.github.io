@@ -12,7 +12,7 @@ Collections of recipes for Kotlin Reflection.
 <!--more-->
 
 ## Original reflection types
-Read this before my article:
+Read these articles before proceeding:
 1. [Official documentation about reflection](https://kotlinlang.org/docs/reflection.html)
 2. [Reflection with Kotlin article](https://www.baeldung.com/kotlin/reflection)
 
@@ -22,7 +22,6 @@ Two basic classes in Kotlin reflection is KClass and KType.
 
 [KType](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/) represents a type. It contains `KClass` and `type arguments` for generics types.
 
-In case, you want to get `type arguments` from the type `Map<String, Int>` you have to call the `KType::arguments` method. `KClass` hasn't information about `type arguments`.
 
 You can find and play all examples from this article in [this repo](https://github.com/jaitl/kotlin-reflection-examples).
 
@@ -44,7 +43,7 @@ val kType: KType = typeOf<String>()
 val kClass: KClass<String> = kType.classifier as KClass<String>
 ```
 
-## [Recipe 2](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/KTypeTest.kt): How to get KType
+## [Recipe 2](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/KTypeTest.kt): Where to get KType
 ### Method 1: From KClass
 #### Simple type
 ```kotlin
@@ -53,7 +52,7 @@ val kType: KType = kClass.createType()
 println(kType) // kotlin.String
 ```
 
-#### Generic type with type argument
+#### Generic type with a type argument
 ```kotlin
 // type for string
 val kClassString: KClass<String> = String::class
@@ -65,7 +64,7 @@ val kType: KType = kClass.createType(listOf(KTypeProjection(KVariance.INVARIANT,
 println(kType) // kotlin.collections.List<kotlin.String>
 ```
 
-#### Generic type with star type
+#### Generic type with the star type
 Unlike previous example, here we loose all information about the `type argument`.
 ```kotlin
 val kClass: KClass<List<*>> = List::class
@@ -74,7 +73,7 @@ assertEquals(KTypeProjection(null, null), kType.arguments.first())
 println(kType) // kotlin.collections.List<*>
 ```
 
-### Method 2: From typeOf<> method
+### Method 2: From the typeOf<> method
 Method [typeOf<>](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/type-of.html) is experemental now. Probably it will be stable in Kotlin 1.6.
 #### Simple type
 ```kotlin
@@ -82,7 +81,7 @@ val kType = typeOf<String>()
 println(kType) // kotlin.String
 ```
 
-#### Generic type with type argument
+#### Generic type with a type argument
 The `typeOf<>()` method supports generic types and returns type parameters information.
 ```kotlin
 val kType = typeOf<List<String>>()
@@ -111,12 +110,20 @@ println(kType) // kotlin.collections.List<kotlin.String>
 
 There are other ways how to get KType. Here, I gave you several examples to show basic principles.
 
-## Recipe 3: Refined paremeter
-Save metadata....
+## Recipe 4: How to get a type argument from a generic type
+`KClass` hasn't information about `type arguments` only `KType` has. So before getting `type arguments` you have to have `KType` for your type.
 
-## Recipe 4: Class traversal
 
-## Recipe 5: Create class by constructor
+## Recipe 5: Refined type parameters
+Read these articles before proceeding:
+1. [Official documentation about refined type parameters](https://kotlinlang.org/docs/inline-functions.html#reified-type-parameters).
+2. [Stackoverflow question about refined type parameters](https://stackoverflow.com/questions/45949584/how-does-the-reified-keyword-in-kotlin-work)
 
-## Recipe 6: Create class by name
+
+
+## Recipe 6: Class traversal
+
+## Recipe 7: Create class by constructor
+
+## Recipe 8: Create class by name
 
