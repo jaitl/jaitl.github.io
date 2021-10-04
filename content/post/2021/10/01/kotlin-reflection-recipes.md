@@ -154,27 +154,89 @@ inline fun <reified T>printType(obj: T) {
 printType("test") // kotlin.String
 ```
 
-## Recipe 6: How to traverse a class
+## [Recipe 6](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/ClassTraverseTest.kt): How to traverse a class
 A class for examination:
 ```kotlin
+class MyClass(val int: Int, val string: String) {
+
+    data class InternalClassDouble(val double: Double)
+    data class InternalClassString(val string: String)
+
+    fun method1ReturnUnit() {
+
+    }
+
+    fun method2ReturnsString(): String = string
+}
 ```
 
 ### Propirties
 ```kotlin
+val data = MyClass(123, "test")
+val clazz = data::class
 
+val properties = clazz.memberProperties
+
+properties.forEach { println("name: ${it.name}, value: ${it.getter.call(data)}") }
 ```
 
-### Methods
-```kotlin
+The code will print:
+```
+name: int, value: 123
+name: string, value: test
+```
 
+### Declarated Methods
+```kotlin
+val data = MyClass(123, "test")
+val clazz = data::class
+
+val methods = clazz.declaredMemberFunctions
+
+methods.forEach { println("name: ${it.name}, returns: ${it.call(data)}") }
+```
+
+The code will print:
+```
+name: method1ReturnUnit, returns: kotlin.Unit
+name: method2ReturnsString, returns: test
+```
+
+### All Methods
+```kotlin
+val data = MyClass(123, "test")
+val clazz = data::class
+
+val methods = clazz.memberFunctions
+
+methods.forEach { println("name: ${it.name}") }
+```
+
+The code will print:
+```
+name: method1ReturnUnit
+name: method2ReturnsString
+name: equals
+name: hashCode
+name: toString
 ```
 
 ### Nested classes
 ```kotlin
+val data = MyClass(123, "test")
+val clazz = data::class
 
+val nestedClasses = clazz.nestedClasses
+
+nestedClasses.forEach { println("${it.qualifiedName}") }
+```
+
+The code will print:
+```
+MyClass.InternalClassDouble
+MyClass.InternalClassString
 ```
 
 ## Recipe 7: How to create a class using his constructor
 
 ## Recipe 8: How to create a class using his name
-
