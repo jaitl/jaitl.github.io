@@ -125,7 +125,7 @@ println("value type argument: $valueArgument") // value type argument: kotlin.In
 ## [Recipe 5](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/RefinedFunctionTest.kt): Refined type parameters
 Read these articles before proceeding:
 1. [Official documentation about inline functions and refined type parameters](https://kotlinlang.org/docs/inline-functions.html).
-2. [Stackoverflow question about refined type parameters](https://stackoverflow.com/questions/45949584/how-does-the-reified-keyword-in-kotlin-work)
+2. [StackOverflow question about refined type parameters](https://stackoverflow.com/questions/45949584/how-does-the-reified-keyword-in-kotlin-work)
 
 ### Pass KClass as an argument
 ```kotlin
@@ -154,9 +154,27 @@ inline fun <reified T>printType(obj: T) {
 printType("test") // kotlin.String
 ```
 
-## Recipe 6: Class traversal
+## Recipe 6: How to traverse a class
+A class for examination:
+```kotlin
+```
 
-## Recipe 7: Create class by constructor
+### Propirties
+```kotlin
 
-## Recipe 8: Create class by name
+```
+
+### Methods
+```kotlin
+
+```
+
+### Nested classes
+```kotlin
+
+```
+
+## Recipe 7: How to create a class using his constructor
+
+## Recipe 8: How to create a class using his name
 
