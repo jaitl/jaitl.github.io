@@ -221,6 +221,23 @@ name: hashCode
 name: toString
 ```
 
+### Calls a method
+```kotlin
+val data1 = MyClass(123, "test")
+val data2 = MyClass(321, "tset")
+
+val clazz = MyClass::class
+
+val equalsMethod = clazz.memberFunctions.find { it.name == "equals" }!!
+
+println("data1 equals data2: ${equalsMethod.call(data1, data2)}")
+```
+
+The code will print:
+```
+data1 equals data2: false
+```
+
 ### Nested classes
 ```kotlin
 val data = MyClass(123, "test")
