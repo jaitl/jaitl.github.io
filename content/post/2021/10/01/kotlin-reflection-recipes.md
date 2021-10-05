@@ -230,7 +230,9 @@ val clazz = MyClass::class
 
 val equalsMethod = clazz.memberFunctions.find { it.name == "equals" }!!
 
-println("data1 equals data2: ${equalsMethod.call(data1, data2)}")
+val result = equalsMethod.call(data1, data2)
+
+println("data1 equals data2: $result")
 ```
 
 The code will print:
@@ -254,6 +256,56 @@ MyClass.InternalClassDouble
 MyClass.InternalClassString
 ```
 
-## Recipe 7: How to create a class using his constructor
+## [Recipe 7](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/CreateClassTest.kt): How to create a class
+### Using a class constructor
+#### Array with parameters
+```kotlin
+val paramsData = arrayOf(1234, "test", Instant.now())
 
-## Recipe 8: How to create a class using his name
+val clazz = SimpleClass::class
+val constructor = clazz.primaryConstructor!!
+
+val dataClass: SimpleClass = constructor.call(*paramsData)
+println(dataClass) // SimpleClass(int=1234, string=test, instant=2021-10-01T15:00:00Z)
+```
+#### Named parameters
+```kotlin
+val paramsData = mapOf("int" to 1234, "string" to "test", "instant" to Instant.now())
+
+val clazz = SimpleClass::class
+val constructor = clazz.primaryConstructor!!
+val args = constructor.parameters.associateWith { paramsData[it.name] }
+
+val dataClass: SimpleClass = constructor.callBy(args)
+println(dataClass) // SimpleClass(int=1234, string=test, instant=2021-10-01T15:00:00Z)
+```
+
+### Using a class name
+Kotlin has no method to create a `KClass` by name, so you have to use the `Class.forName` method from Java then convert a `Class` to a `KClass`. 
+To be consistent, you have to use the `class.java.name` from Java method to get the class name instead of the `class.qualifiedName` from Kotlin method, because they return different names.
+
+```kotlin
+val expectedClass = Adt.AdtOne(1.11, "test")
+val javaName = expectedClass::class.java.name
+println("kotlin name: ${expectedClass::class.qualifiedName}")
+println("java name: $javaName")
+
+val clazz = Class.forName(javaName).kotlin
+val constructor = clazz.primaryConstructor!!
+
+val actualClass = constructor.call(expectedClass.double, expectedClass.string)
+println(actualClass)
+
+assertEquals(Adt.AdtOne::class, actualClass::class)
+assertEquals(expectedClass, actualClass)
+```
+
+The code will print:
+```
+kotlin name: Adt.AdtOne
+java name: Adt$AdtOne
+AdtOne(double=1.11, string=test)
+```
+
+As you can see Kotlin's `class.qualifiedName` returns other name then Java's `class.java.name`.
+
