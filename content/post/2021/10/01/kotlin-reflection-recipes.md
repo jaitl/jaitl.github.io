@@ -8,7 +8,7 @@ image: ""
 tags: []
 private: false
 ---
-Collections of recipes for Kotlin Reflection.
+Collection of recipes for Kotlin Reflection.
 <!--more-->
 
 ## Original reflection types
@@ -16,14 +16,14 @@ Read these articles before proceeding:
 1. [Official documentation about reflection](https://kotlinlang.org/docs/reflection.html)
 2. [Reflection with Kotlin article](https://www.baeldung.com/kotlin/reflection)
 
-Two basic classes in Kotlin reflection is KClass and KType.
+Two original classes in Kotlin reflection are `KClass` and `KType`.
 
 [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) represents a class. It contains information about a class name, constructors, members, and so on.
 
-[KType](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/) represents a type. It contains `KClass` and `type arguments` for generics types.
+[KType](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/) represents a type. It contains a `KClass` and a `type argument` for generics types.
 
 
-You can find and play all examples from this article in [this repo](https://github.com/jaitl/kotlin-reflection-examples).
+You can find and play all examples from this article in [this Github repository](https://github.com/jaitl/kotlin-reflection-examples).
 
 ## [Recipe 1](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/KClassTest.kt): How to get KClass
 ### Method 1: From a type
@@ -65,7 +65,7 @@ println(kType) // kotlin.collections.List<kotlin.String>
 ```
 
 #### Generic type with the star type
-Unlike previous example, here we loose all information about the `type argument`.
+Unlike the previous example, here we lose all information about the `type argument`.
 ```kotlin
 val kClass: KClass<List<*>> = List::class
 val kType: KType = kClass.starProjectedType
@@ -74,21 +74,21 @@ println(kType) // kotlin.collections.List<*>
 ```
 
 ### Method 2: From the typeOf<> method
-Method [typeOf<>](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/type-of.html) is experemental now. Probably it will be stable in Kotlin 1.6.
+The [typeOf<>](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/type-of.html) method is experimental now. It will probably be stable in [Kotlin 1.6](https://youtrack.jetbrains.com/issue/KT-45396).
 #### Simple type
 ```kotlin
 val kType = typeOf<String>()
 println(kType) // kotlin.String
 ```
 
-#### Generic type with a type argument
-The `typeOf<>()` method supports generic types and returns type parameters information.
+#### Generics type with a type argument
+The `typeOf<>()` method supports generic types and returns correct type parameters information.
 ```kotlin
 val kType = typeOf<List<String>>()
 println(kType) // kotlin.collections.List<kotlin.String>
 ```
 
-### Method 3: From constructor parametres
+### Method 3: From constructor parameters
 ```kotlin
 data class MyData(val list: List<String>)
 
@@ -108,10 +108,10 @@ val kType: KType = parameters.first().returnType
 println(kType) // kotlin.collections.List<kotlin.String>
 ```
 
-There are other ways how to get `KType`. I gave you only several examples to show basic principles.
+There are other ways to get `KType`. I gave you only several examples to show basic principles.
 
 ## [Recipe 4](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/GenericTypeArgumentTest.kt): How to get a type argument from a generic type
-`KClass` hasn't information about `type arguments` only `KType` has. So before getting `type arguments` you have to have `KType` for your type.
+A `KClass` doesn't contain information about a `type argument` only a `KType` contains. So before getting the `type argument` you have to have the `KType` for your type.
 
 ```kotlin
 val kType = typeOf<Map<String, Int>>()
@@ -127,7 +127,7 @@ Read these articles before proceeding:
 1. [Official documentation about inline functions and refined type parameters](https://kotlinlang.org/docs/inline-functions.html).
 2. [StackOverflow question about refined type parameters](https://stackoverflow.com/questions/45949584/how-does-the-reified-keyword-in-kotlin-work)
 
-### Pass KClass as an argument
+### Pass a KClass as an argument
 ```kotlin
 fun printType(clazz: KClass<*>) {
     println(clazz.qualifiedName)
@@ -136,7 +136,7 @@ fun printType(clazz: KClass<*>) {
 printType(String::class) // kotlin.String
 ```
 
-### Get KClass from a refined parameter
+### Get a KClass from a refined parameter
 ```kotlin
 inline fun <reified T>printType() {
     println(T::class.qualifiedName)
@@ -145,7 +145,7 @@ inline fun <reified T>printType() {
 printType<String>() // kotlin.String
 ```
 
-### Get KClass from an argument
+### Get a KClass from an argument
 ```kotlin
 inline fun <reified T>printType(obj: T) {
     println(T::class.qualifiedName)
@@ -170,7 +170,7 @@ class MyClass(val int: Int, val string: String) {
 }
 ```
 
-### Propirties
+### Properties
 ```kotlin
 val data = MyClass(123, "test")
 val clazz = data::class
@@ -186,7 +186,7 @@ name: int, value: 123
 name: string, value: test
 ```
 
-### Declarated Methods
+### Declared Methods
 ```kotlin
 val data = MyClass(123, "test")
 val clazz = data::class
@@ -221,7 +221,7 @@ name: hashCode
 name: toString
 ```
 
-### Calls a method
+### Method call
 ```kotlin
 val data1 = MyClass(123, "test")
 val data2 = MyClass(321, "tset")
@@ -282,7 +282,7 @@ println(dataClass) // SimpleClass(int=1234, string=test, instant=2021-10-01T15:0
 
 ### Using a class name
 Kotlin has no method to create a `KClass` by name, so you have to use the `Class.forName` method from Java then convert a `Class` to a `KClass`. 
-To be consistent, you have to use the `class.java.name` from Java method to get the class name instead of the `class.qualifiedName` from Kotlin method, because they return different names.
+To be consistent, you have to use the `class.java.name` method from Java to get the class name instead of the `class.qualifiedName` method from Kotlin, because they return different names.
 
 ```kotlin
 val expectedClass = Adt.AdtOne(1.11, "test")
@@ -307,5 +307,4 @@ java name: Adt$AdtOne
 AdtOne(double=1.11, string=test)
 ```
 
-As you can see Kotlin's `class.qualifiedName` returns other name then Java's `class.java.name`.
-
+As you can see Kotlin's `class.qualifiedName` returns the different name than Java's `class.java.name`.
