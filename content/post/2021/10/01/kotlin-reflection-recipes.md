@@ -44,7 +44,7 @@ val kType: KType = typeOf<String>()
 val kClass: KClass<String> = kType.classifier as KClass<String>
 ```
 
-## [Recipe 2](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/KTypeTest.kt): Where to get a KType
+## [Recipe 2](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/KTypeTest.kt): How to get a KType
 ### Method 1: From a KClass
 #### Simple type
 ```kotlin
