@@ -82,6 +82,11 @@ googleAnalytics = "G-KBJ7QRKR1F"
     weight = 2
 
 [[menu.main]]
+    name = "Telegram Channel"
+    url = "https://t.me/seniorsITBlog"
+    weight = 3
+
+[[menu.main]]
     name = "About"
     url = "about"
-    weight = 3
+    weight = 4
