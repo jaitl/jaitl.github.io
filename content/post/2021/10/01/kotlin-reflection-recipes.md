@@ -8,7 +8,11 @@ image: ""
 tags: []
 private: false
 ---
-Collection of recipes for Kotlin Reflection.
+Kotlin Reflection has poor documentation so I decided to gather together all code samples that I used when I wrote my library.
+I hope this article will help you to save time.
+
+This article contains a collection of recipes for Kotlin Reflection.
+You can find and play with all samples from the article in my [Github repository](https://github.com/jaitl/kotlin-reflection-examples).
 <!--more-->
 
 ## Original reflection types
@@ -21,8 +25,6 @@ Read these articles before proceeding:
 [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) represents a class. It contains information about a class name, constructors, members, and so on.
 
 [KType](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/) represents a type. It contains a `KClass` and a `type argument` for generics types.
-
-> You can find and play with all examples from this article in my [Github repository](https://github.com/jaitl/kotlin-reflection-examples).
 
 ## [Recipe 1](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/KClassTest.kt): How to get a KClass
 ### Method 1: From a type
@@ -156,7 +158,15 @@ printType("test") // kotlin.String
 ## [Recipe 6](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/ClassTraverseTest.kt): How to traverse a class
 A class for examination:
 ```kotlin
-class MyClass(val int: Int, val string: String) {
+annotation class FirstTestAnnotation
+annotation class SecondTestAnnotation
+
+@FirstTestAnnotation
+@SecondTestAnnotation
+class MyClass(
+    @field:FirstTestAnnotation val int: Int,
+    @field:SecondTestAnnotation val string: String
+) {
 
     data class InternalClassDouble(val double: Double)
     data class InternalClassString(val string: String)
@@ -253,6 +263,41 @@ The code will print:
 ```
 MyClass.InternalClassDouble
 MyClass.InternalClassString
+```
+
+### Class annotations traverse
+```kotlin
+val clazz = MyClass::class
+clazz.annotations.forEach { println("${it.annotationClass}") }
+```
+
+The code will print:
+```
+class FirstTestAnnotation
+class SecondTestAnnotation
+```
+
+### Field annotations traverse
+Read these articles before proceeding:
+1. [Annotation use-site targets](https://kotlinlang.org/docs/annotations.html#annotation-use-site-targets)
+2. [Stackoverflow question about annotations](https://stackoverflow.com/questions/46512924/kotlin-get-field-annotation-always-empty)
+
+```kotlin
+val clazz = MyClass::class
+val properties = clazz.memberProperties
+
+properties.forEach { property ->
+    println("property name: ${property.name}")
+    property.javaField?.annotations?.forEach { println("annotation class: ${it.annotationClass}") }
+}
+```
+
+The code will print:
+```
+property name: int
+annotation class: class FirstTestAnnotation
+property name: string
+annotation class: class SecondTestAnnotation
 ```
 
 ## [Recipe 7](https://github.com/jaitl/kotlin-reflection-examples/blob/main/examples/src/test/kotlin/pro/jaitl/kotlin/reflection/CreateClassTest.kt): How to create a class
