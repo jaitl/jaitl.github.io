@@ -8,8 +8,6 @@ image: ""
 tags: []
 private: true
 ---
-[CV English version](/cv/)
-
 # Senior Software Engineer
 ### Contacts
 * Telegram: [@Jaitl](https://t.me/jaitl)
