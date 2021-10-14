@@ -14,4 +14,4 @@ I focus on JVM languages: Kotlin, Java, Scala. Also, I can write on Golang, Pyth
 
 My Russian telegram blog: [Senior's Blog](https://t.me/seniorsITBlog)
 
-_This page in progress..._
+*This page is in progress...*
