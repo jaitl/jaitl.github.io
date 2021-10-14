@@ -8,7 +8,7 @@ image: ""
 tags: []
 private: true
 ---
-I’m a Senior Software Engineer with 6 years of experience in B2C and B2B software development of high-load business-critical distributed systems.
+I’m a Senior Software Engineer with 6 years of experience in B2C and B2B software development of high-load mission-critical distributed systems.
 
 ## My CV
 * [Russian CV](https://jaitl.pro/cv-rus/)
