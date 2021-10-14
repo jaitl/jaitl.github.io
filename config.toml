@@ -87,6 +87,6 @@ googleAnalytics = "G-KBJ7QRKR1F"
     weight = 3
 
 [[menu.main]]
-    name = "About"
+    name = "About Me"
     url = "about"
     weight = 4

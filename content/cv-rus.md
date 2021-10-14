@@ -8,11 +8,13 @@ image: ""
 tags: []
 private: true
 ---
+[CV English version](/cv/)
+
 # Senior Software Engineer
 ### Contacts
 * Telegram: [@Jaitl](https://t.me/jaitl)
 * LinkedIn: [Jaitl](https://www.linkedin.com/in/jaitl)
-* E-mail: [irazd.jobgmail.com](mailto:irazd.job@gmail.com)
+* E-mail: [irazd.job@gmail.com](mailto:irazd.job@gmail.com)
 
 # About Me
 Последние шесть лет я занимаюсь разработкой высоконагруженных бизнес-критичных распределенных систем. Я принимал участие в разработке нескольких Big Data и Machine Learning проектов.

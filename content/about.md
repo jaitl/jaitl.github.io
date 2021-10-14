@@ -8,10 +8,17 @@ image: ""
 tags: []
 private: true
 ---
-I'm a Senior Software Engineer. I have experience in the development of High-Load, Distributed, and Big Data Analysis systems.
+I’m a Senior Software Engineer with 6 years of experience in B2C and B2B software development of high-load business-critical distributed systems.
 
-I focus on JVM languages: Kotlin, Java, Scala. Also, I can write on Golang, Python, and JavaScript.
+## My CV
+* [Russian CV](https://jaitl.pro/cv-rus/)
 
-My Russian telegram blog: [Senior's Blog](https://t.me/seniorsITBlog)
+## Contacts
+* Telegram: [@Jaitl](https://t.me/jaitl)
+* LinkedIn: [Jaitl](https://www.linkedin.com/in/jaitl)
 
-*This page is in progress...*
+## Online
+I have a personal blog and a telegram channel, where I share my experience, articles analysis, and write about trends in software development.
+* [Blog](https://jaitl.pro)
+* [Telegram channel](https://t.me/seniorsITBlog)
+* [Github](https://github.com/jaitl)
