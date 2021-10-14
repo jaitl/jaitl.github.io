@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "About Me"
 author: ""
 type: ""
 date: 2021-05-05T12:00:00+03:00

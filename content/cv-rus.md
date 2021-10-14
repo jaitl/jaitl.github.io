@@ -33,7 +33,7 @@ private: true
 
 Знаком с некоторыми сервисами AWS: EC2, S3, DynamoDB, EMR.
 
-Интересуюсь современными технологиями. Слушаю подкасты (RadioT, DevZen, Подлодка), читаю статьи, смотрю видео с конференций.
+Интересуюсь современными технологиями. Слушаю подкасты ([Radio-T](https://radio-t.com/), [DevZen](https://devzen.ru/), [Подлодка](https://podlodka.io/)), читаю статьи, смотрю видео с конференций.
 
 ### Online
 Веду личный блог и канал в телеграмме, где я делюсь своим опытом и разбираю статьи, отслеживают современные тенденции в разработке.
@@ -43,9 +43,9 @@ private: true
 
 ### Open Source
 Мои основные проекты:
-
-* [kDynamoMapper](https://github.com/jaitl/kDynamoMapper) - мапер для DynamoDB. В одном из проектов я встретился с проблемой конвертирования DTO в модели для DynamoDB и решил написать библиотеку. Библиотека основана на рефлекшн, во время ее разработки я понял что по Kotlin Reflection недостаточно документации и написал большую статью чтобы это исправить.
+* [kDynamoMapper](https://github.com/jaitl/kDynamoMapper) - мапер для DynamoDB. В одном из проектов я встретился с проблемой конвертирования DTO в модели для DynamoDB и решил написать библиотеку. Библиотека основана на рефлекшн, во время ее разработки я понял что по Kotlin Reflection недостаточно документации и написал [большую статью чтобы это исправить](https://jaitl.pro/post/2021/10/01/kotlin-reflection-recipes/).
 * [cloudCrawler](https://github.com/jaitl/cloud-crawler) - начинался как кравлер для моего магистерского дипломного проекта, затем послужил старту стартапа в котором я участвовал - aScraper. Основная его особенность в возможности масштабирования и простоте разработки кравлеров. Изначально проект использовал библиотеку Akka Cluster для коммуникации между сервисами, но она показала себя ненадежно, так же были проблемы с ее контейнеризацией и я решил мигрировать проект на обычный gRPC.
+* [goEnglishBot](https://github.com/jaitl/goEnglishBot) - телеграмм бот для практики произношения фраз и предложений на английском языке. Использует сервисы AWS Polly, Translate, Transcribe для генерации аудио с эталонным произношением и распознанием произношения пользователя. [Я написал статью](https://jaitl.pro/post/2021/04/26/aws-foreign-language/) с описанием концепции и основных принципов устройства этого бота.
 
 Также я контрибьютил в некоторые чужие проекты, например в [radio-t/super-bot](https://github.com/radio-t/super-bot).
 
@@ -122,3 +122,8 @@ private: true
 ### Программная инженерия, бакалавр
 * Тема: Разработка распределенной системы для защищенного хранения и синхронизации файлов.
 * Code: [GitHub](https://github.com/jaitl/jcryptosync)
+
+## Professional Certificate
+* [Cloud Computing Concepts: Part 1](https://www.coursera.org/account/accomplishments/certificate/V7TZ9Z48E9RP)
+* [Cloud Computing Concepts: Part 2](https://www.coursera.org/account/accomplishments/certificate/EUKQW8EVHFQW)
+* [M101J: MongoDB for Java Developers](https://university.mongodb.com/course_completion/6c76673c-be3b-4aad-9952-85cf2838)
