@@ -17,7 +17,7 @@ private: true
 ### Technical stack
 | | |
 |---|---|
-| Languages | Kotlin, Java, Scala, Golang |
+| Languages | Kotlin, Java, Scala, Golang, Python |
 | AWS |EC2, EMR, DynamoDB, S3, Lambda |
 | DataBases | MongoDB, PostgreSQL, ElasticSearch, Cassandra |
 | ETL | Spark, Hadoop, Zeppelin |
