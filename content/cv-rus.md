@@ -60,7 +60,7 @@ private: true
 
 # Experience
 
-## Senior Software Engineer, October 2019 to May 2021
+## Senior Software Engineer, October 2019 to November 2021
 ## [aScaper](https://ascraper.com/), Russia, Moscow
 Я был одним из сооснователей стартапа. Вместе с командой я проектировал архитектуру, разрабатывал MVP, а затем выводил проекты компании в продакшен.
 
