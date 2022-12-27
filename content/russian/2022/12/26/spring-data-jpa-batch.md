@@ -34,7 +34,7 @@ spring:
 ```
 
 Флаги:
-* `generate_statistics` - включает генерирование статистики о запросах на уровне hibernate
+* `generate_statistics` - включает генерирование статистики о запросах на уровне `Hibernate`
 * `order_inserts` - включает сортировку запросов по имени таблицы. В случае если инсерты не отсортированы по имени таблицы, они не могут быть объеденины в один батч и будут разделены на несколько батчей
 * `batch_size` - размер батча
 
@@ -103,7 +103,7 @@ class IdentityRepositoryBatchTest {
 }
 ```
 
-Лог с результатом от `hibernate`:
+Лог с результатом от `Hibernate`:
 ```
 114701 nanoseconds spent preparing 1 JDBC statements;
 1995614 nanoseconds spent executing 1 JDBC statements;
@@ -123,7 +123,7 @@ Params:[(Test identity number: 0,2022-12-27 11:01:20.637046)]
 Теперь перейдем к стратегии `GenerationType.SEQUENCE`. Ниже приветен код sql создания таблицы для сущности, код сущности, репозитория и теста, полный код можно найти на [Github](https://github.com/jaitl/spring-jpa-batch-insert).
 
 ### SQL код таблицы
-Как можно заметить тип поля идентификатора - `integer`, потому что для инкрементальной генерации идентификаторов `hibernate` будет использовать последовательность `sequence_id_auto_gen`, следовательно тип `serial` для идентификатора ненужен.
+Как можно заметить тип поля идентификатора - `integer`, потому что для инкрементальной генерации идентификаторов `Hibernate` будет использовать последовательность `sequence_id_auto_gen`, следовательно тип `serial` для идентификатора ненужен.
 
 ```sql
 create table sequence_table  
@@ -166,6 +166,7 @@ public interface SequenceRepository extends JpaRepository<SequenceEntity, Intege
 ### Тесты
 #### Первый тест: размер батча 100, количество записей 1000, вставляется сразу 1000 сущностей
 
+[Код тестов](https://github.com/jaitl/spring-jpa-batch-insert/blob/main/src/test/java/pro/jaitl/spring/jpa/batch/SequenceRepositoryBatchTest.java)
 ```java
 @SpringBootTest  
 class SequenceRepositoryBatchTest {  
@@ -191,10 +192,9 @@ class SequenceRepositoryBatchTest {
 }
 ```
 
-
 Результаты при `allocationSize = 10`
 
-Логи от `hibernate`:
+Логи от `Hibernate`:
 ```
 9654469 nanoseconds spent preparing 102 JDBC statements;
 243283459 nanoseconds spent executing 101 JDBC statements;
@@ -211,7 +211,7 @@ Query:["insert into sequence_table (name, ts, id) values (?, ?, ?)"]
 
 Результаты при `allocationSize = 50`
 
-Логи от `hibernate`:
+Логи от `Hibernate`:
 ```
 2575582 nanoseconds spent preparing 22 JDBC statements;
 64088523 nanoseconds spent executing 21 JDBC statements;
@@ -225,10 +225,9 @@ Type:Prepared, Batch:True, QuerySize:1, BatchSize:100
 Query:["insert into sequence_table (name, ts, id) values (?, ?, ?)"]
 ```
 
-
 Результаты при `allocationSize = 100`
 
-Логи от `hibernate`:
+Логи от `Hibernate`:
 ```
 1226502 nanoseconds spent preparing 12 JDBC statements;
 45371272 nanoseconds spent executing 11 JDBC statements;
@@ -257,7 +256,7 @@ Query:["insert into sequence_table (name, ts, id) values (?, ?, ?)"]
 В итоге мы получаем 1 + 100 + 10 = 111 запросов к БД.
 
 #### Второй тест: размер батча 100, количество записей 1000, вставляются по 100 сущностей за раз
-Как можно видеть в коде первого теста, я сначала генерирую 1000 сущностей, затем сохраняю их разом в БД, а `hibernate` сам делит их на 10 батчей по 100 сущностей. Во втором тесте я генерирую и сохраняю по 100 сущностей за раз.
+Как можно видеть в коде первого теста, я сначала генерирую 1000 сущностей, затем сохраняю их разом в БД, а `Hibernate` сам делит их на 10 батчей по 100 сущностей. Во втором тесте я генерирую и сохраняю по 100 сущностей за раз.
 
 ```java
 @Test
@@ -276,7 +275,7 @@ public void test2() throws Exception {
 }
 ```
 
-В результате запуска теста при `allocationSize = 100` мы видим 10 подобных записей в логе от `hibernate`:
+В результате запуска теста при `allocationSize = 100` мы видим 10 подобных записей в логе от `Hibernate`:
 ```
 564714 nanoseconds spent preparing 3 JDBC statements;
 5325416 nanoseconds spent executing 2 JDBC statements;
@@ -312,7 +311,7 @@ public void test3() {
 }
 ```
 
-В результате запуска теста при `allocationSize = 100` мы видим 20 подобных записей в логе от `hibernate`:
+В результате запуска теста при `allocationSize = 100` мы видим 20 подобных записей в логе от `Hibernate`:
 ```
 309752 nanoseconds spent preparing 3 JDBC statements;
 3794706 nanoseconds spent executing 2 JDBC statements;
@@ -331,7 +330,7 @@ Type:Prepared, Batch:True, QuerySize:1, BatchSize:50
 Query:["insert into sequence_table (name, ts, id) values (?, ?, ?)"]
 ```
 
-Как видно из логов, теперь размер батча равен 50, ровно столько я и передаю в метод `saveAll` в третьем тесте. Следовательно, `hibernate` не объединяет мелкие батчи в большие для достижения размера батча из параметра `batch_size`.
+Как видно из логов, теперь размер батча равен 50, ровно столько я и передаю в метод `saveAll` в третьем тесте. Следовательно, `Hibernate` не объединяет мелкие батчи в большие для достижения размера батча из параметра `batch_size`.
 
 Так же из интересного можно проанализировать запросы к `sequence_id_auto_gen` на получения идентификаторов:
 1. В первом логе мы видим два запроса к `sequence_id_auto_gen`: один на получение начального значения и один на получение 100 идентификаторов.
@@ -354,7 +353,7 @@ public void test4() {
 }
 ```
 
-В результате запуска теста при `allocationSize = 100` мы получаем 1000 подобных записей в логе от `hibernate`:
+В результате запуска теста при `allocationSize = 100` мы получаем 1000 подобных записей в логе от `Hibernate`:
 ```
 12684 nanoseconds spent preparing 2 JDBC statements;
 1794385 nanoseconds spent executing 1 JDBC statements;
@@ -378,6 +377,8 @@ Query:["insert into sequence_table (name, ts, id) values (?, ?, ?)"]
 ## Вывод
 Думаю не стоит лишний раз писать, что батчевая вставка работает быстрее одиночной вставки, этот вывод мы опустим.
 
+Статистика от `Hibernate` соответствует метрикам от `datasource-proxy`, так что для поверхностного анализа необязательно подключать и настраивать библиотеку `datasource-proxy`.
+
 Целью статьи было исследовать действительно ли при стратегии генерации идентификаторов `GenerationType.IDENTITY` не работает батчевая вставка. Как можно видеть из результатов - это чистая правда. Батчевая вставка не работает в данном случае, даже если она явно включена в настройках. Spring игнорирует эту настройку и не пишет в логи предупреждения об этом.
 
 При использовании стратегии `GenerationType.SEQUENCE` следует обращать внимание не только на количество сущностей и размер батча, но и на параметр `allocationSize`, так как он тоже оказывает влияние на количество запросов к БД. В идеале значение этого параметра должно равняться размеру батча, что бы идентификаторы для всего батча сгенерировались за один запрос в БД к `sequence_id_auto_gen`.
@@ -398,4 +399,4 @@ Query:["insert into sequence_table (name, ts, id) values (?, ?, ?)"]
 ## Полезные ссылки:
 * [Исходный код примеров](https://github.com/jaitl/spring-jpa-batch-insert)
 * [Batch Insert/Update with Hibernate/JPA](https://www.baeldung.com/jpa-hibernate-batch-insert-update)
-* [Batching в Hibernate/JPA](https://docs.jboss.org/hibernate/orm/5.4/userguide/html_single/Hibernate_User_Guide.html#batch)
+* [Batching in Hibernate/JPA](https://docs.jboss.org/hibernate/orm/5.4/userguide/html_single/Hibernate_User_Guide.html#batch)
