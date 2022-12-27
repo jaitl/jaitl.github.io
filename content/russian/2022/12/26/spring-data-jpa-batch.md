@@ -41,7 +41,7 @@ spring:
 Для более точного логирования я использую библиотеку [datasource-proxy](https://github.com/jdbc-observations/datasource-proxy), которая оборачивает спринговый `datasource` в `datasource-proxy` и логирует запросы на уровне драйвера. Настраивается эта библиотека с помощью [DatasourceProxyBeanPostProcessor](https://github.com/jaitl/spring-jpa-batch-insert/blob/main/src/main/java/pro/jaitl/spring/jpa/batch/log/DatasourceProxyBeanPostProcessor.java).
 
 ## GenerationType.IDENTITY
-Начнем эксперимент со стратегии `GenerationType.IDENTITY`. Ниже приветен код sql создания таблицы для сущности, код сущности, репозитория и теста, полный код можно найти на [Github](https://github.com/jaitl/spring-jpa-batch-insert).
+Начнем эксперимент со стратегии `GenerationType.IDENTITY`. Ниже приведен sql код создания таблицы для сущности, код сущности, репозитория и теста, полный код можно найти на [Github](https://github.com/jaitl/spring-jpa-batch-insert).
 
 ### SQL код таблицы
 ```sql
@@ -77,7 +77,7 @@ public interface IdentityRepository extends JpaRepository<IdentityEntity, Intege
 ### Тест
 Размер батча установлен в 100, количество записей которые сохраняются в бд - 1000.
 
-[Код теста](https://github.com/jaitl/spring-jpa-batch-insert/blob/main/src/test/java/pro/jaitl/spring/jpa/batch/IdentityRepositoryBatchTest.java):
+[Код теста](https://github.com/jaitl/spring-jpa-batch-insert/blob/main/src/test/java/pro/jaitl/spring/jpa/batch/IdentityRepositoryBatchTest.java)
 ```java
 @SpringBootTest  
 class IdentityRepositoryBatchTest {  
@@ -120,7 +120,7 @@ Params:[(Test identity number: 0,2022-12-27 11:01:20.637046)]
 Как можно видеть из логов, приложением было выполнено 1000 запросов в БД, а количество батчей - 0. Следовательно, батчевые вставки не выполняются в случае стратегии `GenerationType.IDENTITY` и документация не врет (ну а вдруг бы врала, всякое бывает).
 
 ## GenerationType.SEQUENCE
-Теперь перейдем к стратегии `GenerationType.SEQUENCE`. Ниже приветен код sql создания таблицы для сущности, код сущности, репозитория и теста, полный код можно найти на [Github](https://github.com/jaitl/spring-jpa-batch-insert).
+Теперь перейдем к стратегии `GenerationType.SEQUENCE`. Ниже приведен sql код создания таблицы для сущности, код сущности, репозитория и теста, полный код можно найти на [Github](https://github.com/jaitl/spring-jpa-batch-insert).
 
 ### SQL код таблицы
 Как можно заметить тип поля идентификатора - `integer`, потому что для инкрементальной генерации идентификаторов `Hibernate` будет использовать последовательность `sequence_id_auto_gen`, следовательно тип `serial` для идентификатора ненужен.
