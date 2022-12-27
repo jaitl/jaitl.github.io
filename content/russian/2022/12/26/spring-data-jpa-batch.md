@@ -28,19 +28,19 @@ private: false
 ```yaml
 spring:
   jpa:  
-    show-sql: true  
-      properties:  
-        hibernate:  
-          generate_statistics: true
-          order_inserts: true
-          jdbc.batch_size: 100
+    properties:  
+      hibernate:  
+        generate_statistics: true
+        order_inserts: true
+        jdbc.batch_size: 100
 ```
 
 Флаги:
-* `show-sql` - включает логирование запросов
-* `generate_statistics` - включает генерирование статистики о запросах
+* `generate_statistics` - включает генерирование статистики о запросах на уровне hibernate
 * `order_inserts` - включает сортировку запросов по имени таблицы. В случае если инсерты не отсортированы по имени таблицы, они не могут быть объеденины в один батч и будут разделены на несколько батчей
 * `batch_size` - максимальный размер батча
+
+Для более точного логирования я использую библиотеку [datasource-proxy](https://github.com/jdbc-observations/datasource-proxy), которая оборачивает спринговый `datasource` и логирует запросы на уровне драйвера. Настраивается эта библиотека с помощью [DatasourceProxyBeanPostProcessor](https://github.com/jaitl/spring-jpa-batch-insert/blob/main/src/main/java/pro/jaitl/spring/jpa/batch/log/DatasourceProxyBeanPostProcessor.java), который оборачивает оригинальный `datasource` в `datasource-proxy`.
 
 ## GenerationType.IDENTITY
 
@@ -79,7 +79,7 @@ public interface IdentityRepository extends JpaRepository<IdentityEntity, Intege
 ```
 
 ### Тест
-Размер батча установлен в 100, количество записей которые сохраняются в бд установлена в 1000.
+Размер батча установлен в 100, количество записей которые сохраняются в бд - 1000.
 
 ```java
 @SpringBootTest  
@@ -106,14 +106,21 @@ class IdentityRepositoryBatchTest {
 }
 ```
 
-Результат:
+Лог с результатом от hibernate:
 ```
 114701 nanoseconds spent preparing 1 JDBC statements;
 1995614 nanoseconds spent executing 1 JDBC statements;
 0 nanoseconds spent executing 0 JDBC batches;
 ```
 
-Как можно видеть из лога, приложением было выполнено 1000 запросов в БД, а количество батчей - 0. Из чего можно сделать вывод, что батчевые вставки не выполняются в случае стратегии `GenerationType.IDENTITY` и документация не врет.
+Лог с результатом от datasource-proxy:
+```
+Type:Prepared, Batch:False, QuerySize:1, BatchSize:0
+Query:["insert into identity_table (name, ts) values (?, ?)"]
+Params:[(Test identity number: 0,2022-12-27 11:01:20.637046)]
+```
+
+Как можно видеть из логов, приложением было выполнено 1000 запросов в БД, а количество батчей - 0. Следовательно, батчевые вставки не выполняются в случае стратегии `GenerationType.IDENTITY` и документация не врет (ну а вдруг бы врала, всякое бывает).
 
 ## GenerationType.SEQUENCE
 Теперь перейдем к стратегии `GenerationType.SEQUENCE`. Ниже приветен код sql создания таблицы для сущности, код сущности, репозитория и теста, полный код можно найти на [Github](https://github.com/jaitl/spring-jpa-batch-insert).
@@ -159,7 +166,7 @@ public interface SequenceRepository extends JpaRepository<SequenceEntity, Intege
 ```
 
 ### Тесты
-Первый тест, размер батча установлен в 100, количество записей которые сохраняются в бд установлено в 1000.
+#### Первый тест: размер батча 100, количество записей 1000, вставляется сразу вся 1000.
 
 ```java
 @SpringBootTest  
@@ -186,28 +193,52 @@ class SequenceRepositoryBatchTest {
 }
 ```
 
-Результаты при `allocationSize = 10`
-```
-4588674 nanoseconds spent preparing 101 JDBC statements;
-215632040 nanoseconds spent executing 100 JDBC statements;
-41919958 nanoseconds spent executing 1 JDBC batches;
-194059063 nanoseconds spent executing 1 flushes (flushing a total of 1000 entities and 0 collections);
+Результаты при `allocationSize = 10`.
 
+Логи от hibernate:
 ```
+9654469 nanoseconds spent preparing 102 JDBC statements;
+243283459 nanoseconds spent executing 101 JDBC statements;
+99123235 nanoseconds spent executing 10 JDBC batches;
+311794956 nanoseconds spent executing 1 flushes (flushing a total of 1000 entities and 0 collections);
+```
+Лог от datasource-proxy:
+```
+Name:MyDS, Connection:7, Time:12, Success:True
+Type:Prepared, Batch:True, QuerySize:1, BatchSize:100
+Query:["insert into sequence_table (name, ts, id) values (?, ?, ?)"]
+```
+
 Результаты при `allocationSize = 50`
+
+Логи от hibernate:
 ```
-930578 nanoseconds spent preparing 21 JDBC statements;
-33927601 nanoseconds spent executing 20 JDBC statements;
-45626454 nanoseconds spent executing 1 JDBC batches;
-176865388 nanoseconds spent executing 1 flushes (flushing a total of 1000 entities and 0 collections);
+2575582 nanoseconds spent preparing 22 JDBC statements;
+64088523 nanoseconds spent executing 21 JDBC statements;
+166666099 nanoseconds spent executing 10 JDBC batches;
+479391860 nanoseconds spent executing 1 flushes (flushing a total of 1000 entities and 0 collections);
+```
+Лог от datasource-proxy:
+```
+Name:MyDS, Connection:7, Time:13, Success:True
+Type:Prepared, Batch:True, QuerySize:1, BatchSize:100
+Query:["insert into sequence_table (name, ts, id) values (?, ?, ?)"]
 ```
 
 Результаты при `allocationSize = 100`
+
+Логи от hibernate:
 ```
-766926 nanoseconds spent preparing 11 JDBC statements;
-40908813 nanoseconds spent executing 10 JDBC statements;
-53419380 nanoseconds spent executing 1 JDBC batches;
-214674739 nanoseconds spent executing 1 flushes (flushing a total of 1000 entities and 0 collections);
+1226502 nanoseconds spent preparing 12 JDBC statements;
+45371272 nanoseconds spent executing 11 JDBC statements;
+81173417 nanoseconds spent executing 10 JDBC batches;
+280084078 nanoseconds spent executing 1 flushes (flushing a total of 1000 entities and 0 collections);
+```
+Лог от datasource-proxy:
+```
+Name:MyDS, Connection:7, Time:6, Success:True
+Type:Prepared, Batch:True, QuerySize:1, BatchSize:100
+Query:["insert into sequence_table (name, ts, id) values (?, ?, ?)"]
 ```
 
 Из лога можно сделать два вывода:
@@ -217,10 +248,15 @@ class SequenceRepositoryBatchTest {
 	2. Размера батча
 	3. Параметра `allocationSize`, т.е. количества идентификаторов, которые генерируются за один запрос к `sequence` в БД
 
-Теперь рассмотрим откуда берется такое количество запросов к БД на примере первого лога.
-Параметр `allocationSize` установлен в значение 10, следовательно нужно сделать 1000/10 = 100 запросов к БД что бы сгенерировать 1000 идентификаторов. А затем еще один запрос к БД что бы сохранить батч из 1000 сущностей. В итоге мы получаем 100 + 1 запросов к БД. Но почему батч всего один и на 1000 сущностей? При размере батча в 100 из 1000 сущностей мы должны были получить 10 батчей, следовательно 10 батчевых запросов на вставку.
+Теперь рассмотрим откуда берется 101 + 10 запросов к БД на примере лога первого результата:
+1. Cпринг делает 1 запрок к `sequence_id_auto_gen` что бы получить текущее значение.
+2. Параметр `allocationSize` установлен в значение 10, следовательно выполняется 1000/10 = 100 запросов к БД что бы сгенерировать 1000 идентификаторов по 10 идентификаторов за запрос. 
+3. Параметр `batch_size` установлен в 100, следовательно выполняется 10 батчевых запросов по 100 сущностей в каждом, что бы сохранить батч из 1000 сущностей.
 
-Как можно видеть в коде теста, я сначала генерирую 1000 сущностей, затем сохраняю их разом в БД. Судя по всему hibernate не делит их на отдельные батчи по 100 сущностей, а сразу сохраняет одним батчем в 1000 сущностей. Что бы проверить эту теорию я написал еще один тест:
+В итоге мы получаем 100 + 10 + 1 = 111 запросов к БД.
+
+#### Второй тест: размер батча 100, количество записей 1000, вставляются по 100 сущностей за раз.
+Как можно видеть в коде первого теста, я сначала генерирую 1000 сущностей, затем сохраняю их разом в БД, а `hibernate` сам делит их на 10 батчей по 100 сущностей. Во втором тесте я сам генерирую и сохраняю по 100 сущностей за раз.
 
 ```java
 @Test
@@ -239,15 +275,24 @@ public void test2() throws Exception {
 }
 ```
 
-В результате запуска теста при `allocationSize = 10` мы видим 10 подобных записей в логе:
+В результате запуска теста при `allocationSize = 100` мы видим 10 подобных записей в логе от `hibernate`:
 ```
-638321 nanoseconds spent preparing 11 JDBC statements;
-26781131 nanoseconds spent executing 10 JDBC statements;
-7646157 nanoseconds spent executing 1 JDBC batches;
-45586938 nanoseconds spent executing 1 flushes (flushing a total of 100 entities and 0 collections);
+564714 nanoseconds spent preparing 3 JDBC statements;
+5325416 nanoseconds spent executing 2 JDBC statements;
+12250282 nanoseconds spent executing 1 JDBC batches;
+75982849 nanoseconds spent executing 1 flushes (flushing a total of 100 entities and 0 collections);
+```
+А так же 10 подобных записей в логе от `datasource-proxy`:
+```
+Name:MyDS, Connection:7, Time:9, Success:True
+Type:Prepared, Batch:True, QuerySize:1, BatchSize:100
+Query:["insert into sequence_table (name, ts, id) values (?, ?, ?)"]
 ```
 
-Следовательно, предыдущая теория подтверждена, при передаче N записей в метод `saveAll` hibernate не делит их на отдельные саб-батчи, а сохраняет все разом. Тогда возникает следующий вопрос, что будет если передать меньше сущностей чем установленно в настройке `batch_size`? Я написал третий тест что бы это выяснить:
+Из анализа логов следует что мы так же получаем 10 батчей по 100 сущностей в каждом.
+
+#### Третий тест: размер батча 100, количество записей 1000, вставляются по 50 сущностей за раз.
+В третьем тесте я решил проверить, что будет если передать меньше сущностей чем установленно в настройке `batch_size`.
 
 ```java
 @Test
@@ -266,17 +311,31 @@ public void test3() {
 }
 ```
 
-В результате запуска теста при `allocationSize = 10` мы видим 20 подобных записей в логе:
+В результате запуска теста при `allocationSize = 100` мы видим 20 подобных записей в логе от `hibernate`:
 ```
-260032 nanoseconds spent preparing 6 JDBC statements;
-8648810 nanoseconds spent executing 5 JDBC statements;
-3471284 nanoseconds spent executing 1 JDBC batches;
+309752 nanoseconds spent preparing 3 JDBC statements;
+3794706 nanoseconds spent executing 2 JDBC statements;
+7992646 nanoseconds spent executing 1 JDBC batches;
+15285352 nanoseconds spent executing 1 flushes (flushing a total of 50 entities and 0 collections);
+...
+67387 nanoseconds spent preparing 1 JDBC statements;
+0 nanoseconds spent executing 0 JDBC statements;
+4282457 nanoseconds spent executing 1 JDBC batches;
 15285352 nanoseconds spent executing 1 flushes (flushing a total of 50 entities and 0 collections);
 ```
+А так же 20 подобных записей в логе от `datasource-proxy`:
+```
+Name:MyDS, Connection:7, Time:6, Success:True
+Type:Prepared, Batch:True, QuerySize:1, BatchSize:50
+Query:["insert into sequence_table (name, ts, id) values (?, ?, ?)"]
+```
 
-Как видно из логов теперь размер батча равен 50, ровно столько я и передаю в метод `saveAll` в третьем тесте.
-Из этого можно сделать вывод, что в случае использования метода `saveAll`, параметр `batch_size` игнорируется и размер батча равен количеству сущностей, которое передается в метод `saveAll`.
+Как видно из логов теперь размер батча равен 50, ровно столько я и передаю в метод `saveAll` в третьем тесте. Следовательно `hibernate` не объединяет мелкие батчи в боолее большие, что бы достичь парамерта `batch_size`.
+Так же из интересного можно наблюдать запросы к `sequence_id_auto_gen` для получения идентификаторов:
+1. В первом логе мы видим два запроса к `sequence_id_auto_gen`, один на получение начального значения и один на получение 100 идентификаторов.
+2. Во втором логе мы видим 0 запросов к `sequence_id_auto_gen`, потому что в первом запросе мы получили 100 идентификаторов, а использовали 50, потому что количество сохраняемых сущностей равняется 50, следовательно осталось еще 50 идентификаторов для второго батча и еще один запрос к `sequence_id_auto_gen` делать ненужно.
 
+#### Четвертый тест: сохранение по 1 записи без батча
 Осталось проверить какой будет размер батча, если сохранять сущности через метод `save` по одной. Для этого я написал четвертый тест:
 
 ```java
@@ -293,7 +352,7 @@ public void test4() {
 }
 ```
 
-В результате запуска теста при `allocationSize = 10` мы получаем 1000 подобных записей в логе:
+В результате запуска теста при `allocationSize = 100` мы получаем 1000 подобных записей в логе от `hibernate`:
 ```
 12684 nanoseconds spent preparing 2 JDBC statements;
 1794385 nanoseconds spent executing 1 JDBC statements;
@@ -305,11 +364,14 @@ public void test4() {
 1222957 nanoseconds spent executing 1 JDBC batches;
 1572550 nanoseconds spent executing 1 flushes (flushing a total of 1 entities and 0 collections);
 ```
+А так же 1000 подобных записей в логе от `datasource-proxy`:
+```
+Name:MyDS, Connection:733, Time:1, Success:True
+Type:Prepared, Batch:True, QuerySize:1, BatchSize:1
+Query:["insert into sequence_table (name, ts, id) values (?, ?, ?)"]
+```
 
-Из анализа этого лога видно следующее:
-1. Размер батча 1 сущность, нет агрегации запросов в батчи по 100 штук, как указано в конфиге
-2. hibernate сначала делает запрос на получение 10 идентификаторов, затем последовательно использует их для вставки записей, пока не вставит 10 записей, затем он запрашивает еще 10 идентификаторов и т.д.
-
+Из анализа этого лога видно, что размер батча 1 сущность, агрегации запросов в батчи по 100 штук нет.
 
 ## Вывод
 Думаю не стоит лишний раз писать, что батчевая вставка работает быстрее одиночной вставки, этот вывод мы опустим.
@@ -318,4 +380,8 @@ public void test4() {
 
 При использовании стратегии `GenerationType.SEQUENCE` нужно обращать внимание не только на количество сущностей и размер батча, но и на параметр `allocationSize`, он так же оказывает влияние на количество запросов к БД. В идеале значение этого параметра должно равняться размеру батча, что бы на весь батч был один запрос в БД на генерацию идентификаторов.
 
-В случае сохранения коллекции записей через метод `saveAll`, параметр `batch_size` игнорируется, а размер батча равен количеству сущностей в передаваемой коллекции. В случае сохранения сущностей по одной через метод `save`, размер батча равен 1.
+При сохранении батчей через `saveAll` видим следующее поведение:
+1. Если размер батча больше `batch_size`, то он делится на несколько саб-батчей по `batch_size` сущностей в каждом.
+2. Если размер батча меньше `batch_size`, то батч не агрегируется в более большой батч.
+
+В случае сохранения сущностей по одной через метод `save`, размер батча равен 1.
