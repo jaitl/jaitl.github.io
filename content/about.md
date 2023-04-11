@@ -8,9 +8,7 @@ image: ""
 tags: []
 private: true
 ---
-I’m a Senior Software Engineer with 6 years of experience in B2C and B2B software development of high-load mission-critical distributed systems.
-
-Co-founder of [aScraper](https://ascraper.com/).
+I’m a Senior Software Engineer with 8 years of experience in B2C and B2B software development of high-load mission-critical distributed systems.
 
 ## Contacts
 * Telegram: [@Jaitl](https://t.me/jaitl)

@@ -6,6 +6,7 @@ date: 2021-09-09T19:43:15+03:00
 subtitle: ""
 image: ""
 tags: []
+url: /russian/2021/09/09/github_actions_cache
 private: false
 ---
 В этой заметке я подготовил пару сниппетов кода для быстрого включения кеширования в Github Actions.

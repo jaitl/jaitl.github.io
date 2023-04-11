@@ -6,6 +6,7 @@ date: 2021-10-01T12:00:00+03:00
 subtitle: ""
 image: ""
 tags: []
+url: /post/2021/10/01/kotlin-reflection-recipes
 private: false
 ---
 Kotlin Reflection has poor documentation so I decided to gather together all code samples that I used when I wrote my library.
