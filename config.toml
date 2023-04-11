@@ -77,8 +77,8 @@ googleAnalytics = "G-KBJ7QRKR1F"
     weight = 1
 
 [[menu.main]]
-    name = "Russian Blog"
-    url = "russian"
+    name = "Notes"
+    url = "note"
     weight = 2
 
 [[menu.main]]

@@ -6,6 +6,7 @@ date: 2021-06-10T12:00:00+03:00
 subtitle: ""
 image: ""
 tags: []
+url: /russian/2021/06/10/optimistic_pessimistic_locking
 private: false
 ---
 Краткий обзор оптимистических и пессимистических блокировок.
