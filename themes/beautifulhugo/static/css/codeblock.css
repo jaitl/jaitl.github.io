@@ -8,6 +8,10 @@ pre code.hljs {
   padding: 9.5px;
 }
 
+.highlight tr, .highlight pre {
+  border: none;
+}
+
 .highlight div:first-child {
   border-radius: 4px;
 }
@@ -17,15 +21,13 @@ pre code.hljs {
   border-top-right-radius: unset;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: unset;
-  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .highlight td:last-child pre, .highlight pre {
-  border-radius: 4px;
+  border-radius: unset;
 }
 
-pre code {
-  white-space: pre !important;
-  word-wrap: normal !important;
-  word-break: normal !important;
+.highlight td:last-child pre code, .highlight pre code {
+  white-space: pre;
 }
