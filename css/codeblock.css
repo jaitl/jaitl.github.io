@@ -8,12 +8,6 @@ pre code.hljs {
   padding: 9.5px;
 }
 
-/*
-.highlight tr, .highlight pre {
-  border: none;
-}
-*/
-
 .highlight div:first-child {
   border-radius: 4px;
 }
