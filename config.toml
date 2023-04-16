@@ -1,6 +1,7 @@
 baseURL = "https://jaitl.pro"
 languageCode = "en-us"
 title = "Jaitl's blog"
+theme = 'beautifulhugo'
 
 metaDataFormat = "yaml"
 pygmentsUseClasses = true
@@ -82,11 +83,11 @@ googleAnalytics = "G-KBJ7QRKR1F"
     weight = 2
 
 [[menu.main]]
-    name = "Telegram Channel"
+    name = "Telegram"
     url = "https://t.me/seniorsITBlog"
     weight = 3
 
 [[menu.main]]
-    name = "About Me"
+    name = "About"
     url = "about"
     weight = 4
