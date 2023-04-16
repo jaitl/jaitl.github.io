@@ -10,7 +10,7 @@ pygmentsCodeFences = true
 googleAnalytics = "G-KBJ7QRKR1F"
 
 [Params]
-  # homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
+  homeTitle = "Jaitl's blog"
   # subtitle = "Build a beautiful and simple website in minutes"
   mainSections = ["post"]
   logo = "img/jaitl-avatar.png" # Expecting square dimensions
