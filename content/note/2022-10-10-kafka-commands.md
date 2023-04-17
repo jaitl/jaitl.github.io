@@ -1,6 +1,6 @@
 # Kafka
 
-# Утилиты для кафки
+# Утилиты
 ## kcat
 Если вы часто работаете с Kafka, то вы скорее всего знакомы с официальным cli клиентом:
 ```bash
@@ -16,7 +16,7 @@ kcat -L -b localhost
 
 kcat работает в разы быстрее официального клиента
 
-
+# Основные команды
 ## Управление топиками:
 ```bash
 ./bin/kafka-topics.sh --bootstrap-server 10.10.100.1:6667 --create --topic test.test --partitions 2 --replication-factor 1
@@ -66,4 +66,23 @@ kcat -C -b localhost -t test.test
 
 ```bash
 ./bin/kafka-configs.sh --bootstrap-server 10.10.100.1:6667 --alter --entity-type topics --entity-name test.test --delete-config retention.bytes --delete-config retention.ms
+```
+
+# Аутентификация
+## Конфиг для java
+```
+kafka.organization.consumer.security.protocol=SASL_PLAINTEXT
+kafka.organization.consumer.sasl.mechanism=SCRAM-SHA-256
+kafka.organization.consumer.sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="user" password="password";
+```
+
+## Пример запроса с аутентификацией
+### Получение сообщений (consumer)
+```bash
+kcat -C -b 10.10.100.1:6667 -X sasl.username=user -X sasl.password=password -t test.test-X security.protocol=sasl_plaintext -X sasl.mechanism=SCRAM-SHA-256
+```
+
+### Отправка сообщений (producer)
+```bash
+kcat -P -b 10.10.100.1:6667 -X sasl.username=user -X sasl.password=password -t test.test -X security.protocol=sasl_plaintext -X sasl.mechanism=SCRAM-SHA-256
 ```
