@@ -27,6 +27,8 @@ kcat работает в разы быстрее официального кли
 ## Список топиков:
 ```bash
 ./bin/kafka-topics.sh --bootstrap-server=10.10.100.1:6667 --list
+```
+```bash
 kcat -L -b 10.10.100.1:6667
 ```
 
@@ -37,14 +39,18 @@ kcat -L -b 10.10.100.1:6667
 
 ## Запись в топик
 ```bash
-kcat -P -b localhost -t test.test
 ./bin/kafka-console-producer.sh --bootstrap-server 10.10.100.1:6667 --topic test.test
+```
+```bash
+kcat -P -b localhost -t test.test
 ```
 
 ## Чтение из топика
 ```bash
-kcat -C -b localhost -t test.test
 ./bin/kafka-console-consumer.sh --bootstrap-server 10.10.100.1:6667 --topic test.test
+```
+```bash
+kcat -C -b localhost -t test.test
 ```
 
 ## Изменение конфигов топика
