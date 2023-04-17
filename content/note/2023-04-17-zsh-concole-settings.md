@@ -1,9 +1,24 @@
-# Настройки приложения терминала
+---
+title: "Конфиги ZSH под iTerm2"
+slug: "zsh-concole-settings"
+author: ""
+type: ""
+date: 2023-04-17T12:00:00+03:00
+subtitle: ""
+image: ""
+tags: []
+private: false
+---
+В заметке собраны основный настройки для zsh и iTerm: темы, утилиты, powerlevel10k, .zshrc.
+
+<!--more-->
+
+# Приложения терминала
 [iTerm2](https://iterm2.com) - приложение для MacOS
 [cobalt2](https://iterm2colorschemes.com) - тема для iTerm
 [nerdfonts](https://www.nerdfonts.com/font-downloads) - пропатченные шрифты с символами (для powerlevel10k)
 
-# CLI приложения
+# CLI утилиты
 * [brew](https://brew.sh)
 * [sdkman](https://sdkman.io) - управления java sdk и утилитами
 * [lsd](https://github.com/lsd-rs/lsd) - красивая версия ls
@@ -15,6 +30,8 @@
 * [powerlevel10k](https://github.com/romkatv/powerlevel10k) - модификация строки ввода
 
 ## .zshrc
+Базовые настройки из файла `.zshrc`.
+
 ```bash
 ### ZSH
 # Тема
