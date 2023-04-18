@@ -1,6 +1,6 @@
 ---
 title: "Конфигурирование ZSH под iTerm2"
-slug: "zsh-concole-settings"
+slug: "zsh-console-settings"
 author: ""
 type: ""
 date: 2023-04-17T12:00:00+03:00
