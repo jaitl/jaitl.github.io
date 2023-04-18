@@ -1,5 +1,5 @@
 ---
-title: "Конфиги ZSH под iTerm2"
+title: "Конфигурирование ZSH под iTerm2"
 slug: "zsh-concole-settings"
 author: ""
 type: ""
@@ -9,18 +9,18 @@ image: ""
 tags: []
 private: false
 ---
-В заметке собраны основный настройки для zsh и iTerm: темы, утилиты, powerlevel10k, .zshrc.
+В заметке собраны мои основные настройки для zsh и iTerm: темы, утилиты, powerlevel10k, .zshrc.
 
 <!--more-->
 
-# Приложения терминала
-[iTerm2](https://iterm2.com) - приложение для MacOS
-[cobalt2](https://iterm2colorschemes.com) - тема для iTerm
-[nerdfonts](https://www.nerdfonts.com/font-downloads) - пропатченные шрифты с символами (для powerlevel10k)
+# iTerm2
+* [iTerm2](https://iterm2.com) - приложение для MacOS
+* [cobalt2](https://iterm2colorschemes.com) - тема для iTerm
+* [nerdfonts](https://www.nerdfonts.com/font-downloads) - пропатченные шрифты с символами (для powerlevel10k)
 
 # CLI утилиты
-* [brew](https://brew.sh)
-* [sdkman](https://sdkman.io) - управления java sdk и утилитами
+* [brew](https://brew.sh) - менеджер пакетов для MacOS
+* [sdkman](https://sdkman.io) - управление java sdk и утилитами
 * [lsd](https://github.com/lsd-rs/lsd) - красивая версия ls
 * [ripgrep (rg)](https://github.com/BurntSushi/ripgrep) - красивая версия grep
 
@@ -30,8 +30,7 @@ private: false
 * [powerlevel10k](https://github.com/romkatv/powerlevel10k) - модификация строки ввода
 
 ## .zshrc
-Базовые настройки из файла `.zshrc`.
-
+Базовые настройки из файла `.zshrc`:
 ```bash
 ### ZSH
 # Тема
@@ -44,7 +43,7 @@ plugins=(git sdk zsh-autosuggestions zsh-syntax-highlighting zsh-history-substri
 # Вставлять после source ~/.p10k.zsh
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
-# Настройка для внешней клавы для плагина zsh-history-substring-search
+# Настройка внешней клавиатуры для плагина zsh-history-substring-search
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
@@ -54,8 +53,8 @@ alias dev="cd ~/dev"
 
 # Использованть lsd вместо ls
 alias ls="lsd"
-alias lt='ls --tree'
 alias lst='ls --tree'
+alias lsa='ls -la'
 
 ### Git
 # Переход на ветку main с checkout

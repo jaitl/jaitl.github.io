@@ -12,7 +12,7 @@ googleAnalytics = "G-KBJ7QRKR1F"
 [Params]
   homeTitle = "Jaitl's blog"
   # subtitle = "Build a beautiful and simple website in minutes"
-  mainSections = ["post"]
+  mainSections = ["posts"]
   logo = "img/jaitl-avatar.png" # Expecting square dimensions
   favicon = "img/favicon.ico"
   dateFormat = "January 2, 2006"
@@ -79,7 +79,7 @@ googleAnalytics = "G-KBJ7QRKR1F"
 
 [[menu.main]]
     name = "Notes"
-    url = "note"
+    url = "notes"
     weight = 2
 
 [[menu.main]]
