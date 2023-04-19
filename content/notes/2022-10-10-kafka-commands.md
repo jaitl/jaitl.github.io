@@ -97,7 +97,7 @@ kafka.organization.consumer.sasl.jaas.config=org.apache.kafka.common.security.sc
 ## Пример запроса с аутентификацией
 ### Получение сообщений (consumer)
 ```bash
-kcat -C -b 10.10.100.1:6667 -X sasl.username=user -X sasl.password=password -t test.test-X security.protocol=sasl_plaintext -X sasl.mechanism=SCRAM-SHA-256
+kcat -C -b 10.10.100.1:6667 -X sasl.username=user -X sasl.password=password -t test.test -X security.protocol=sasl_plaintext -X sasl.mechanism=SCRAM-SHA-256
 ```
 
 ### Отправка сообщений (producer)
