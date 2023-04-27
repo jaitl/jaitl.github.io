@@ -13,7 +13,7 @@ private: false
 
 В статье примеры реализованы на `Spring Boot 3` и `Spring 6`, поэтому все Jakarta EE (Java EE) классы импортируются из пакета `jakarta.validation.*`. Примеры совместимы с предыдущей версией `Spring` в который классы импортируются из пакета `javax.validation.*`.
 
-Я пропустил документацию по аннотациям ограничений (`jakarta.validation.constraints.*`), так как аннотаций достаточно много и они подробно описаны в официальной документации и многих других статьях.
+Я пропустил документацию по аннотациям ограничений (`jakarta.validation.constraints.*`), так как аннотаций достаточно много и они подробно описаны в [официальной документации](https://jakarta.ee/specifications/bean-validation/3.0/jakarta-bean-validation-spec-3.0.html#builtinconstraints) и многих других статьях.
 
 # Типы валидации
 ## Валидация входных данных контроллера
@@ -570,6 +570,76 @@ class FacadeControllerTest extends BaseApiTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", equalTo(400)))
                 .andExpect(jsonPath("$.error", equalTo("facadeDto: Facade fields don't have the string pattern")));
+    }
+}
+```
+## Композиция ограничивающих аннотаций
+Несколько ограничивающих аннотаций (`jakarta.validation.constraints.*`) можно объединить в одну аннотацию. Это полезно когда несколько аннотаций составляют одну логическую проверку.
+
+Базовое поведение такое: при нарушении констрейнов будет отдан список ошибок, как будто констрейны определены на поле напрямую, без использования кастомной аннотации. В этом случае ошибка (поле `message()`) из кастомной аннотации отдаваться не будет.
+Аннотация `@ReportAsSingleViolation` меняет поведение на следующее: проверка выполняется до нарушения первого констрейна, после нарушения будет отдана ошибка (поле `message()`) из кастомной аннотации.
+
+[RusPhoneNumber](https://github.com/jaitl/spring-examples/blob/main/spring-validation/src/main/java/pro/jaitl/spring/examples/validation/custom/RusPhoneNumber.java):
+```java
+@Pattern(regexp = "\\+7\\(\\d{3}\\)\\d{3}\\-\\d{2}\\-\\d{2}")
+@Size(min = 16, max = 16)
+@Constraint(validatedBy = { })
+@ReportAsSingleViolation
+@Documented
+@Target(FIELD)
+@Retention(RUNTIME)
+public @interface RusPhoneNumber {
+    String message() default "Wrong phone number";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+}
+```
+
+[UserDto](https://github.com/jaitl/spring-examples/blob/main/spring-validation/src/main/java/pro/jaitl/spring/examples/validation/dto/UserDto.java):
+```java
+@Data
+public class UserDto {
+    @NotNull
+    @Size(min = 1, max = 20)
+    private String name;
+    @NotNull
+    @RusPhoneNumber
+    private String phone;
+}
+```
+
+[RusPhoneNumberTest](https://github.com/jaitl/spring-examples/blob/main/spring-validation/src/test/java/pro/jaitl/spring/examples/validation/custom/RusPhoneNumberTest.java):
+```java
+@SpringBootTest
+public class RusPhoneNumberTest {
+    @Autowired
+    private Validator validator;
+
+    @Test
+    public void test_Success() {
+        UserDto userDto = new UserDto();
+        userDto.setName("test");
+        userDto.setPhone("+7(222)333-22-11");
+
+        Set<ConstraintViolation<UserDto>> result = validator.validate(userDto);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void test_Failed() {
+        UserDto userDto = new UserDto();
+        userDto.setName("test");
+        userDto.setPhone("not phone");
+
+        List<ConstraintViolation<UserDto>> result = List.copyOf(validator.validate(userDto));
+        assertEquals(1, result.size());
+
+        ConstraintViolation<UserDto> validationResult = result.get(0);
+
+        assertEquals("phone", validationResult.getPropertyPath().toString());
+        assertEquals("Wrong phone number", validationResult.getMessage());
     }
 }
 ```
