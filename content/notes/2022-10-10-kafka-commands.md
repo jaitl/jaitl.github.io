@@ -94,7 +94,7 @@ props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
 props.put(SaslConfigs.SASL_MECHANISM, "SCRAM-SHA-256");
 props.put(SaslConfigs.SASL_JAAS_CONFIG, "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"username\" password=\"password\";");
 ```
-## Конфиг для java
+## Конфиг в виде property
 ```
 security.protocol=SASL_PLAINTEXT
 sasl.mechanism=SCRAM-SHA-256
