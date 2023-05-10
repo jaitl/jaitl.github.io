@@ -88,10 +88,17 @@ kcat -C -b localhost -t test.test
 
 # Аутентификация
 ## Конфиг для java
+```java
+Properties props = new Properties();
+props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
+props.put(SaslConfigs.SASL_MECHANISM, "SCRAM-SHA-256");
+props.put(SaslConfigs.SASL_JAAS_CONFIG, "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"username\" password=\"password\";");
 ```
-kafka.organization.consumer.security.protocol=SASL_PLAINTEXT
-kafka.organization.consumer.sasl.mechanism=SCRAM-SHA-256
-kafka.organization.consumer.sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="user" password="password";
+## Конфиг в виде property
+```
+security.protocol=SASL_PLAINTEXT
+sasl.mechanism=SCRAM-SHA-256
+sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="user" password="password";
 ```
 
 ## Пример запроса с аутентификацией
