@@ -92,7 +92,7 @@ kcat -C -b localhost -t test.test
 Properties props = new Properties();
 props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
 props.put(SaslConfigs.SASL_MECHANISM, "SCRAM-SHA-256");
-props.put(SaslConfigs.SASL_JAAS_CONFIG, "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"username\" password=\"password\";");
+props.put(SaslConfigs.SASL_JAAS_CONFIG, "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"username\" password=\"password\";");
 ```
 ## Конфиг в виде property
 ```
