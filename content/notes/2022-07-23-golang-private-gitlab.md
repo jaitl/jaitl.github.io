@@ -1,5 +1,5 @@
 ---
-title: "Подключение к приватному gitlab"
+title: "Подключение к приватному GitLab для Golang"
 slug: "golang-private-gitlab"
 author: ""
 type: ""
@@ -9,7 +9,7 @@ image: ""
 tags: []
 private: false
 ---
-В заметке собраны конфиги для подключения к приватному GitLab.
+В заметке собраны конфиги для подключения к приватному GitLab для Golang.
 
 <!--more-->
 
